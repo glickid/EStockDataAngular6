@@ -1,4 +1,4 @@
-import { alert } from '../Alerts/Alert';
+import { Alert } from '../Alerts/Alert';
 
 export interface portfolio {
     name: string,
@@ -10,5 +10,5 @@ export interface portfolio {
     dopen: number,
     dayChange: string,
     overallProfit: number,
-    alertsArr: alert[]
+    alertsArr: Alert[]
 }

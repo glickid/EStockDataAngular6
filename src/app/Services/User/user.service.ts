@@ -1,13 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from './user';
-
-//import {map} from 'rxjs/operator';
 import { Observable } from 'rxjs';
 
-// Import RxJs required methods
-// import 'rxjs/add/operator/map';
-// import 'rxjs/add/operator/catch';
+import { User } from './user';
+
 
 @Injectable({
   providedIn: 'root'

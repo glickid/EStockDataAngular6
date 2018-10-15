@@ -1,4 +1,4 @@
-export default interface alert {
+export default interface Alert {
     id: number,
     userId: number,
     alertType: string,

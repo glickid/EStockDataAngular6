@@ -1,0 +1,9 @@
+.small-table {
+    font-size: 10px;
+    border: none;
+}
+
+.small-table td, .small-table th, .small-table thead th {
+    padding: 0;
+    border:none;
+}

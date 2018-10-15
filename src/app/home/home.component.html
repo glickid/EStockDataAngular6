@@ -1,0 +1,162 @@
+<div class="container home-container">
+  <div class="row">
+      <div class="col-md-3 col-sm-6 mt-1 mb-1" style="background-color: black">
+          <div class="container bg-info text-light mt-1">
+              <small>
+                  <u>Gainers</u>
+              </small>
+              <br/>
+              <div class="table-responsive-sm">
+                  <table class="table small-table">
+                      <thead>
+                          <tr>
+                              <th class="th-sm">Symbol</th>
+                              <th class="th-sm">Last Price</th>
+                              <th class="th-sm">Change</th>
+                              <th class="th-sm">%Change</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <!-- <tr ng-repeat="gainer in gainersList | orderBy:'-changePercent' | limitTo: 5"> -->
+                            <tr>
+                              <!-- <th class="small-table-td" scope="row">{{gainer.symbol}}</th>
+                              <td class="small-table-td">{{gainer.latestPrice|number}}</td>
+                              <td class="small-table-td">{{gainer.change}}</td>
+                              <td class="small-table-td">{{gainer.changePercent*100 | number:2}}</td> -->
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+          <div class="container bg-info text-light mt-1">
+              <small>
+                  <u>Losers</u>
+              </small>
+              <br/>
+              <div class="table-responsive-sm">
+                  <table class="table small-table">
+                      <thead>
+                          <tr>
+                              <th class="th-sm">Symbol</th>
+                              <th class="th-sm">Last Price</th>
+                              <th class="th-sm">Change</th>
+                              <th class="th-sm">%Change</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <!-- <tr ng-repeat="loser in losersList | orderBy:'changePercent' | limitTo: 5"> -->
+                            <tr>
+                              <!-- <th class="small-table-td" scope="row">{{loser.symbol}}</th>
+                              <td class="small-table-td">{{loser.latestPrice|number}}</td>
+                              <td class="small-table-td">{{loser.change}}</td>
+                              <td class="small-table-td">{{loser.changePercent*100 | number:2}}</td> -->
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+          <div class="container bg-info text-light mt-1">
+              <small>
+                  <u>Most Active</u>
+              </small>
+              <br/>
+              <div class="table-responsive-sm">
+                  <table class="table small-table">
+                      <thead>
+                          <tr>
+                              <th class="th-sm">Symbol</th>
+                              <th class="th-sm">Last Price</th>
+                              <th class="th-sm">last Volume</th>
+                              <th class="th-sm">%Change</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <!-- <tr ng-repeat="active in mostActiveList | orderBy:'-latestVolume' | limitTo: 5"> -->
+                            <tr>
+                              <!-- <th class="small-table-td" scope="row">{{active.symbol}}</th>
+                              <td class="small-table-td">{{active.latestPrice|number}}</td>
+                              <td class="small-table-td">{{active.latestVolume|number}}</td>
+                              <td class="small-table-td">{{active.changePercent*100 | number:2}}</td> -->
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+              <!-- <small [hidden]="mostActiveList.length">No Info out of trading hours.</small> -->
+          </div>
+          <div class="container bg-info text-light mt-2 mb-2">
+              <small>
+                  <u>Major Currencies (value in USD)</u>
+              </small>
+              <br/>
+              <!-- <div ng-repeat="(key,val) in currencyObj"> -->
+                <div>
+                  <!-- <small class="text-dark mt-2">{{key}}:
+                      <span class="float-right">{{val}}</span>
+                  </small> -->
+              </div>
+          </div>
+      </div>
+      <div class="col-md-6 col-sm-6">
+          <!-- <div class="jumbotron jumbotron-fluid mt-5" [hidden]="isUserLoggedIn()"> -->
+          <div class="jumbotron jumbotron-fluid mt-5">
+              <div id="main-container" class="container">
+                  <img id="main-icon" class="d-inline-block" src="assests/1477521928_10_icon-icons.com_74620.png" alt="" width="50px">
+                  <h1 class="d-inline-block display-4">EStockData</h1>
+                  <p class="lead">Welcome to the EStockData website</p>
+                  <hr class="my-2">
+                  <p>As a registered user you would be able to:
+                      <ul id="features-list">
+                          <li>Manage a virtaul stock-portfolio</li>
+                          <li>Set Alerts for stocks</li>
+                          <li>See detailed stock-charts</li>
+                          <li>See crypto currencies</li>
+                      </ul>
+                      <div class="lead mt-2 float-right">
+                          <a id="signin-btn" class="btn btn-primary btn-lg" role="button" href="#!/signup">Register Now!</a>
+                          <a id="login-btn" class="btn btn-primary btn-lg" href="" role="button" data-toggle="modal" data-target="#loginModal">Login</a>
+                      </div>
+              </div>
+          </div>
+          <!-- <div [hidden]="!isUserLoggedIn()" class="container bg-light mt-5"> -->
+          <div class="container bg-light mt-5">
+              <!-- <h1 class="display-5">Welcome {{activerUser.fname}}</h1> -->
+              <h1 class="display-5">Welcome </h1>
+              <div class="lead mt-2">
+                  <a class="btn btn-primary btn-lg action-btn" href="" role="button" (click)="managePortfolio()">
+                      Manage my virtaul stock-portfolio</a>
+              </div>
+              <div class="lead mt-2">
+                  <a class="btn btn-primary btn-lg action-btn" href="" role="button" (click)="seeCharts()">
+                      See detailed stock-charts</a>
+              </div>
+              <div class="lead mt-2 pb-4">
+                  <a class="btn btn-primary btn-lg action-btn" href="" role="button" (click)="seeCryptoCurrencies()">
+                      See crypto currencies</a>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-3 col-sm-12 mt-1 mb-1" style="background-color: black">
+          <div class="container bg-info text-light mt-1">
+              <h3>
+                  <u>Nasdaq 100 Index</u>
+              </h3>
+              <div class="">
+                  <label for="QDays">Last days to show:</label>
+                  <input type="number" name="QDays" id="QDays" [(ngModel)]="quantity">
+              </div>
+              <!-- <div class="text-dark" ng-repeat="(key1, val1) in NDXinfo | objLimitTo:quantity"> -->
+                <div class="text-dark">
+                  <small>
+                      <!-- <u>{{key1}}</u> -->
+                  </small>
+                  <!-- <div ng-class="{'mb-3':$last}" ng-repeat="(key2, val2) in val1"> -->
+                    <div>
+                      <!-- <small>{{key2}}:
+                          <span class="float-right">{{val2}}</span>
+                      </small> -->
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
