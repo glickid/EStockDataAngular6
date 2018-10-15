@@ -5,6 +5,10 @@ import { Component, OnInit } from '@angular/core';
 // import 'rxjs/add/observable/interval';
 import { interval } from 'rxjs';
 import * as $ from 'jquery';
+import { UserService } from '../../Services/User/user.service';
+import { User } from '../../Services/User/User';
+//import { UserComponent } from '../user/user.component';
+import { portfolio } from '../../Services/Portfolio/Portfolio';
 
 @Component({
   selector: 'app-nav-bar-comp',
@@ -14,14 +18,23 @@ import * as $ from 'jquery';
 
 export class NavBarCompComponent implements OnInit {
 
-  activeUser: String;
-  alertNum: Number;
-  userManageAlertsArr: String[];
+  public activeUser: String = "";
+  public alertNum: Number = 0;
+  public userManageAlertsArr: String[] = [];
+  public currentUser: User = {id: 0, fname:" ", lname: " ", email:" ",
+                              password: " ", 
+                              portfolio: []};
 
-  constructor() { 
-    this.activeUser = null;
-    this.alertNum = 0;
-    this.userManageAlertsArr = [];
+  constructor(private _UserSrv: UserService) { 
+    // this.currentUser.fname = "";
+    // this.currentUser.lname = "";
+    // this.currentUser.password = "";
+    // this.currentUser.email = "";
+    // this.currentUser.portfolio = "";
+  
+    // this.activeUser = null;
+    // this.alertNum = 0;
+    // this.userManageAlertsArr = [];
 
     interval(4000).subscribe(() => {
         // $interval(function () {
@@ -46,6 +59,22 @@ export class NavBarCompComponent implements OnInit {
   isUserLoggedIn () {
       // return userSrv.isLoggedIn();
       return false;
+  }
+
+  login () {
+    this._UserSrv.login("yossi@yossi.com", "123")
+      // .subscribe((data: User) => console.log(data) );
+      .subscribe((data: User) => 
+      {
+        this.currentUser.fname = data[0]['fname'];
+        this.currentUser.lname = data[0]['lname'];
+        this.currentUser.email = data[0]['email'];
+        this.currentUser.password = data[0]['password'];
+         for ( let i=0; i<data[0]['portfolio'].length; i++)
+         {
+           this.currentUser.portfolio.push(data[0]['portfolio'][i]);
+         }
+      });
   }
 
   logout () {
