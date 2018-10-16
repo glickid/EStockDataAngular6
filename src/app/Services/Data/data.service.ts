@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -28,7 +27,7 @@ export class DataService {
       });
         
     return reply;
-}
+  }
 
 // getCurrencyValue(C1, C2) {
 //     //var key = configSrv.getStockInfoApiKey();
@@ -84,25 +83,32 @@ export class DataService {
 //     return (async.promise);
 // }
 
-// function getNDX() {
+//getNDX() : {} {
+  getNDX() : Observable<{}> {
 //     var key = configSrv.getStockInfoApiKey();
+    const stockInfoApiKey = "0ME2BHQ21RW7FMKX";
 
-//     var theUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=NDX&outputsize=compact&apikey=" + key;
+    var theUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=NDX&outputsize=compact&apikey=" 
+    + stockInfoApiKey;
+    let reply = {};
+    // let myObservable : Observable<{}> = Observable(reply);
 
-//     var async = $q.defer();
-
-//     $http.get(theUrl).then(function (response) {
-
-//         if (response.data.hasOwnProperty("Time Series (Daily)")) {
-//             Ndxinfo = response.data["Time Series (Daily)"];
-//         }
+    return this.http.get(theUrl);
+      // .subscribe((data) =>
+      // {
+      //   console.log(data);
+      //   if (data.hasOwnProperty("Time Series (Daily)")) {
+      //     reply = data["Time Series (Daily)"];
+      //     return myObservable;
+      // }
 //         async.resolve(Ndxinfo);
 //     }, function (err) {
 //         $log.error(err);
 //         async.reject("failed to get NDX info");
-//     })
+    // })
 
 //     premises.push(async.promise);
 //     return async.promise;
-// // }
+    // return myObservable;
+   }
 }

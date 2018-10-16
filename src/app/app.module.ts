@@ -8,6 +8,7 @@ import { NavBarCompComponent } from './Components/nav-bar-comp/nav-bar-comp.comp
 import { UserComponent } from './Components/user/user.component';
 import { UserService } from './Services/User/user.service';
 import { HomeComponent } from './home/home.component';
+import { DataService } from './Services/Data/data.service';
 // import { portfolio } from './Services/Portfolio/Portfolio';
 // import { Alert } from './Services/Alerts/Alert';
 
@@ -26,7 +27,7 @@ import { HomeComponent } from './home/home.component';
     // portfolio,
     // Alert
   ],
-  providers: [UserService],
+  providers: [UserService, DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
