@@ -145,7 +145,7 @@
                 </h3>
                 <div class="">
                     <label for="QDays">Last days to show:</label>
-                    <input type="number" name="QDays" id="QDays" [(ngModel)]="quantity" (change)="getNDXinfo()">
+                    <input type="number" name="QDays" id="QDays" [(ngModel)]="quantity" (ngModelChange)="updateNdxLength($event)">
                 </div>
                 <div *ngFor="let item of NDXinfo">
                      <!-- let-i="index"> -->

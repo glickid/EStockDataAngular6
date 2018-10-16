@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -93,7 +96,8 @@ export class DataService {
     let reply = {};
     // let myObservable : Observable<{}> = Observable(reply);
 
-    return this.http.get(theUrl);
+    return this.http.get(theUrl).pipe(
+      catchError(this.handleError('Could not get Leads', [])));
       // .subscribe((data) =>
       // {
       //   console.log(data);
@@ -111,4 +115,22 @@ export class DataService {
 //     return async.promise;
     // return myObservable;
    }
+
+   /**
+ * Handle Http operation that failed.
+ * Let the app continue.
+ * @param operation - name of the operation that failed
+ * @param result - optional value to return as the observable result
+ */
+  private handleError<T> (operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+  
+      console.error(error); // log to console instead
+  
+      // this.log(`${operation} failed: ${error.message}`);
+  
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
+  }
 }

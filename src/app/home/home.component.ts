@@ -28,16 +28,25 @@ export class HomeComponent implements OnInit {
     if (this.innerWidth > 1200)
       this.quantity = 6;
     else
-    this.quantity = 3;
+      this.quantity = 3;
+
+    this.getNDXinfo();
+  }
+
+  updateNdxLength(newValue)
+  {
+    this.quantity = newValue;
     this.getNDXinfo();
   }
 
   getNDXinfo()
     {
       this.NDXinfo.length = 0;
-      this._dataService.getNDX().subscribe((data) => {
+      this._dataService.getNDX().subscribe((data) => 
+      {
         let i:number=0;
-        if (data.hasOwnProperty("Time Series (Daily)")) {
+        if (data.hasOwnProperty("Time Series (Daily)")) 
+        {
           let obj : any = data["Time Series (Daily)"];
           //this.NDXinfo.push(obj); //Object.keys(obj).push({key, obj[key]});
           for (let k of Object.keys(obj)) {
@@ -48,6 +57,11 @@ export class HomeComponent implements OnInit {
             if (i===this.quantity)
               break;
           }
+        }
+        else
+        {
+          console.log(data);
+        }  
       });
       
                      
