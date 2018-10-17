@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../Services/Data/data.service';
+import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,9 @@ export class HomeComponent implements OnInit {
   gainersList = [];
   loosersList = [];
   mostActiveList = [];
+  currenciesArr = [];
   public innerWidth: any;
+  subscription: Subscription;
 
   constructor(private _dataService: DataService) { }
 
@@ -27,6 +30,10 @@ export class HomeComponent implements OnInit {
     this.getGainers();
     this.getLosers();
     this.getMostActive();
+    this.getCurrencyValues();
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   onResize(event) {
@@ -92,9 +99,10 @@ export class HomeComponent implements OnInit {
         return 0;
       });
       this.gainersList = sortedArray.slice(0,5);
-    }, function (err) {
-      console.log(err);
-    })
+    // }, function (err) {
+    //   console.log(err);
+    // })
+    });
   }
 
   getLosers() {
@@ -115,9 +123,10 @@ export class HomeComponent implements OnInit {
         return 0;
       });
       this.loosersList = sortedArray.slice(0,5);
-    }, function (err) {
-      console.log(err);
-    })
+    });
+    // }, function (err) {
+    //   console.log(err);
+    // })
   }
 
   getMostActive() {
@@ -137,8 +146,47 @@ export class HomeComponent implements OnInit {
         return 0;
       });
       this.mostActiveList = sortedArray.slice(0,5);
-    }, function (err) {
-      console.log(err);
-    })
+    // }, function (err) {
+    //   console.log(err);
+    // })
+    });
+  }
+
+  getCurrencyValues() {
+    const currArr: string[] = ["USD", "EUR", "GBP", "JPY", "CAD", "HKD"];
+
+    let C1: string = currArr[0];
+    let C2: string = "";
+    // const source = interval(22000); //22 secomds
+
+    this.currenciesArr.length = 0;
+
+   for (let i = 1; i < currArr.length; i++) {
+//         $timeout(getCurrencyValue.bind(null, C1, C2),
+//             (30000 + (15000 * (i - 1))))
+//     }
+    // this.subscription = source.subscribe(val => {
+      C2 = currArr[i];
+
+      this._dataService.getCurrencyValue(C1,C2).subscribe((data) => {
+
+        if (data.hasOwnProperty("Realtime Currency Exchange Rate")) {
+          let currencyObject = {};
+
+          currencyObject["name"] =
+            data["Realtime Currency Exchange Rate"]["4. To_Currency Name"];
+          currencyObject["value"] =
+            data["Realtime Currency Exchange Rate"]["5. Exchange Rate"];
+          
+          this.currenciesArr.push(currencyObject);
+        }
+        else {
+          console.log("failed to parse Currency response ");
+          console.log(data);
+        }
+      });
+    // });
+    // if (i=== (currArr.length-1))
+      // this.subscription.unsubscribe();
   }
 }

@@ -78,18 +78,17 @@
                         </tbody>
                     </table>
                 </div>
-                <small [hidden]="mostActiveList.length">No Info out of trading hours.</small>
+                <!-- <small [hidden]="mostActiveList.length!=0">No Info out of trading hours.</small> -->
             </div>
             <div class="container bg-info text-light mt-2 mb-2">
                 <small>
                     <u>Major Currencies (value in USD)</u>
                 </small>
                 <br />
-                <!-- <div ng-repeat="(key,val) in currencyObj"> -->
-                <div>
-                    <!-- <small class="text-dark mt-2">{{key}}:
-                      <span class="float-right">{{val}}</span>
-                  </small> -->
+                <div *ngFor="let currency of currenciesArr">
+                    <small class="text-dark mt-2">{{currency.name}}:
+                        <span class="float-right">{{currency.value | number:'1.3-3'}}</span>
+                    </small>
                 </div>
             </div>
         </div>
