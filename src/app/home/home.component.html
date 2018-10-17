@@ -17,12 +17,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- <tr ng-repeat="gainer in gainersList | orderBy:'-changePercent' | limitTo: 5"> -->
-                            <tr>
-                                <!-- <th class="small-table-td" scope="row">{{gainer.symbol}}</th>
+                            <tr *ngFor="let gainer of gainersList">
+                              <th class="small-table-td" scope="row">{{gainer.symbol}}</th>
                               <td class="small-table-td">{{gainer.latestPrice|number}}</td>
                               <td class="small-table-td">{{gainer.change}}</td>
-                              <td class="small-table-td">{{gainer.changePercent*100 | number:2}}</td> -->
+                              <td class="small-table-td">{{gainer.changePercent*100 | number : '1.2-2'}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -44,12 +43,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- <tr ng-repeat="loser in losersList | orderBy:'changePercent' | limitTo: 5"> -->
-                            <tr>
-                                <!-- <th class="small-table-td" scope="row">{{loser.symbol}}</th>
+                            <tr *ngFor="let loser of loosersList">
+                              <th class="small-table-td" scope="row">{{loser.symbol}}</th>
                               <td class="small-table-td">{{loser.latestPrice|number}}</td>
                               <td class="small-table-td">{{loser.change}}</td>
-                              <td class="small-table-td">{{loser.changePercent*100 | number:2}}</td> -->
+                              <td class="small-table-td">{{loser.changePercent*100 | number:'1.2-2'}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -71,17 +69,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- <tr ng-repeat="active in mostActiveList | orderBy:'-latestVolume' | limitTo: 5"> -->
-                            <tr>
-                                <!-- <th class="small-table-td" scope="row">{{active.symbol}}</th>
+                            <tr *ngFor="let active of mostActiveList">
+                              <th class="small-table-td" scope="row">{{active.symbol}}</th>
                               <td class="small-table-td">{{active.latestPrice|number}}</td>
                               <td class="small-table-td">{{active.latestVolume|number}}</td>
-                              <td class="small-table-td">{{active.changePercent*100 | number:2}}</td> -->
+                              <td class="small-table-td">{{active.changePercent*100 | number:'1.2-2'}}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <!-- <small [hidden]="mostActiveList.length">No Info out of trading hours.</small> -->
+                <small [hidden]="mostActiveList.length">No Info out of trading hours.</small>
             </div>
             <div class="container bg-info text-light mt-2 mb-2">
                 <small>

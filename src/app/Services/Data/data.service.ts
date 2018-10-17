@@ -18,18 +18,21 @@ export class DataService {
 
     let theUrl: string = 
       "https://www.alphavantage.co/query?function=SECTOR&apikey=" + key;
-    let reply = {};
+    // let reply = {};
 
-    this.http.get(theUrl)
-      .subscribe((data) =>
-      {
-        if (data.hasOwnProperty("Rank A: Real-Time Performance")) {
-            var RTperformance = data["Rank A: Real-Time Performance"];
-            reply = { "data": RTperformance };
-        }
-      });
+    return this.http.get(theUrl).pipe(
+      catchError(this.handleError('Could not get RT performance info', [])));
+
+    // this.http.get(theUrl)
+    //   .subscribe((data) =>
+    //   {
+    //     if (data.hasOwnProperty("Rank A: Real-Time Performance")) {
+    //         var RTperformance = data["Rank A: Real-Time Performance"];
+    //         reply = { "data": RTperformance };
+    //     }
+    //   });
         
-    return reply;
+    // return reply;
   }
 
 // getCurrencyValue(C1, C2) {
@@ -86,34 +89,16 @@ export class DataService {
 //     return (async.promise);
 // }
 
-//getNDX() : {} {
   getNDX() : Observable<{}> {
 //     var key = configSrv.getStockInfoApiKey();
     const stockInfoApiKey = "0ME2BHQ21RW7FMKX";
 
     var theUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=NDX&outputsize=compact&apikey=" 
     + stockInfoApiKey;
-    let reply = {};
-    // let myObservable : Observable<{}> = Observable(reply);
+    // let reply = {};
 
     return this.http.get(theUrl).pipe(
-      catchError(this.handleError('Could not get Leads', [])));
-      // .subscribe((data) =>
-      // {
-      //   console.log(data);
-      //   if (data.hasOwnProperty("Time Series (Daily)")) {
-      //     reply = data["Time Series (Daily)"];
-      //     return myObservable;
-      // }
-//         async.resolve(Ndxinfo);
-//     }, function (err) {
-//         $log.error(err);
-//         async.reject("failed to get NDX info");
-    // })
-
-//     premises.push(async.promise);
-//     return async.promise;
-    // return myObservable;
+      catchError(this.handleError('Could not get NDX info', [])));
    }
 
    /**
@@ -133,4 +118,60 @@ export class DataService {
       return of(result as T);
     };
   }
+
+  getGainersList() : Observable<{}> {
+    var theUrl = "https://api.iextrading.com/1.0/stock/market/list/gainers";
+    // var async = $q.defer();
+
+    return this.http.get(theUrl).pipe(
+      catchError(this.handleError('Could not get Gainers info', [])));
+
+    // $http.get(theUrl).then(function (response) {
+    //     gainersArr.length = 0;
+    //     gainersArr = response.data.slice(0);
+    //     async.resolve(gainersArr);
+    // }, function (err) {
+    //     $log.error(err);
+    //     async.reject("failed to get gainers info");
+    // });
+
+    // return async.promise;
+  }
+
+  getLosersList() : Observable<{}> {
+    var theUrl = "https://api.iextrading.com/1.0/stock/market/list/losers";
+    // var async = $q.defer();
+
+    return this.http.get(theUrl).pipe(
+      catchError(this.handleError('Could not get Losers info', [])));
+    // $http.get(theUrl).then(function (response) {
+    //     losersArr.length = 0;
+    //     losersArr = response.data.slice(0);
+    //     async.resolve(losersArr);
+    // }, function (err) {
+    //     $log.error(err);
+    //     async.reject("failed to get losers info");
+    // });
+
+    // return async.promise;
+  }
+
+  getMostActive() : Observable<{}> {
+    var theUrl = "https://api.iextrading.com/1.0/stock/market/list/mostactive";
+
+    // var async = $q.defer();
+    // mostActiveArr.length = 0;
+
+    return this.http.get(theUrl).pipe(
+      catchError(this.handleError('Could not get Active info', [])));
+    // $http.get(theUrl).then(function (response) {
+    //     mostActiveArr = response.data.slice(0);
+    //     async.resolve(mostActiveArr);
+    // }, function (err) {
+    //     $log.error(err);
+    //     async.reject("failed to get losers info");
+    // });
+
+    // return async.promise;
+}
 }
