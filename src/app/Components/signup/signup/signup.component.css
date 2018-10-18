@@ -1,0 +1,14 @@
+#signup-container{
+    padding-top: 10px;
+    padding-bottom: 10px;
+ 	background-repeat: no-repeat;
+ 	background:url(https://i.ytimg.com/vi/4kfXjatgeEU/maxresdefault.jpg);
+ 	font-family: 'Oxygen', sans-serif;
+	    background-size: cover;
+}
+
+.signup-input,
+.signup-input::-webkit-input-placeholder {
+    font-size: 11px;
+    padding-top: 3px;
+}

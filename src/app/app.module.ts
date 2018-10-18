@@ -9,6 +9,8 @@ import { UserComponent } from './Components/user/user.component';
 import { UserService } from './Services/User/user.service';
 import { HomeComponent } from './home/home.component';
 import { DataService } from './Services/Data/data.service';
+import { AppRoutingModule } from './app-routing.module';
+import { SignupComponent } from './Components/signup/signup/signup.component';
 // import { portfolio } from './Services/Portfolio/Portfolio';
 // import { Alert } from './Services/Alerts/Alert';
 
@@ -18,12 +20,14 @@ import { DataService } from './Services/Data/data.service';
     AppComponent,
     NavBarCompComponent,
     UserComponent,
-    HomeComponent
+    HomeComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule
     // portfolio,
     // Alert
   ],
