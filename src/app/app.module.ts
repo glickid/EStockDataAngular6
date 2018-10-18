@@ -12,6 +12,9 @@ import { HomeComponent } from './home/home.component';
 import { DataService } from './Services/Data/data.service';
 import { AppRoutingModule } from './app-routing.module';
 import { SignupComponent } from './Components/signup/signup/signup.component';
+import { PortfolioComponent } from './Components/portfolio/portfolio.component';
+import { StockChartsComponent } from './Components/stock-charts/stock-charts.component';
+import { CryptoCurrenciesComponent } from './Components/crypto-currencies/crypto-currencies.component';
 // import { portfolio } from './Services/Portfolio/Portfolio';
 // import { Alert } from './Services/Alerts/Alert';
 
@@ -22,7 +25,10 @@ import { SignupComponent } from './Components/signup/signup/signup.component';
     NavBarCompComponent,
     UserComponent,
     HomeComponent,
-    SignupComponent
+    SignupComponent,
+    PortfolioComponent,
+    StockChartsComponent,
+    CryptoCurrenciesComponent
   ],
   imports: [
     BrowserModule,
