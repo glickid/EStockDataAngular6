@@ -5,7 +5,7 @@
                 <h1 class="d-inline-block display-4">EStockData</h1>
                 <p class="lead">Please Register </p>
                 
-            <form class="" method="post" action="#">
+            <form class="" method="post" action="#" [formGroup]="signInForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
                     <label for="name" class="cols-sm-2 control-label">First Name</label>
                     <div class="cols-sm-10">
@@ -14,7 +14,7 @@
                                 <i class="fa fa-user fa" aria-hidden="true"></i>
                             </span>
                             <input type="text" class="form-control signup-input" name="name" id="fname" 
-                            placeholder="Enter your first Name" ng-model="fname"/>
+                            placeholder="Enter your first Name" formControlName="fname"/>
                         </div>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                                     <i class="fa fa-user fa" aria-hidden="true"></i>
                                 </span>
                                 <input type="text" class="form-control signup-input" name="name" id="lname" 
-                                placeholder="Enter your last Name" ng-model="lname" />
+                                placeholder="Enter your last Name" formControlName="lname" />
                             </div>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                                 <i class="fa fa-envelope fa"></i>
                             </span>
                             <input type="text" class="form-control signup-input" name="email" id="email" 
-                            placeholder="Enter your Email" ng-model="email"/>
+                            placeholder="Enter your Email" formControlName="email"/>
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                                 <i class="fa fa-lock fa-lg" aria-hidden="true"></i>
                             </span>
                             <input type="password" class="form-control signup-input" name="password" 
-                            id="password" placeholder="Enter your Password" ng-model="password"/>
+                            id="password" placeholder="Enter your Password" formControlName="password"/>
                         </div>
                     </div>
                 </div>
@@ -69,12 +69,11 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="form-group ">
-                    <a href="javascript:void(0)" type="button" id="button"
-                     class="btn btn-primary btn-lg btn-block login-button" ng-click="signup()">Register</a>
+                    <button href="javascript:void(0)" type="submit" id="button"
+                     class="btn btn-primary btn-lg btn-block login-button">Register</button>
+                      <!-- ng-click="signup()">Register</a> -->
                 </div>
-
             </form>
         </div>
     </div>

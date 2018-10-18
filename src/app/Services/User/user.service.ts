@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'
 import { User } from './user';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -34,7 +33,7 @@ export class UserService {
       }));
     }
 
-    logout() {
+    logout() : void {
       this._user.fname = "";
       this._user.id = -1;
       this._user.lname = "";
@@ -43,19 +42,40 @@ export class UserService {
       this._user.email = "";
     }
 
-    isLoggedIn() {
+    isLoggedIn() : boolean {
       if (this._user.id !== -1) {
         return true;
       }
       return false;
     }
 
-    getActiveUser() {
+    getActiveUser() : User {
       // if (this._user.id !== -1)
         return this._user;
       // else 
         // return null;
     }
+
+    signInNewUser(newUser: {} ) : Observable<boolean> {
+      
+      const loginURL = "https://estockdata.herokuapp.com/users/";
+
+      let user : User = {id:undefined,fname:newUser['fname'],
+      lname:newUser['lname'],email:newUser['email'],
+      password:newUser['password'], portfolio:[]}
+
+      return this.http.post(loginURL, user)
+        .pipe(map( element => {
+          this._user.id = element['id'];
+          this._user.fname = element['fname'];
+          this._user.lname = element['lname'];
+          this._user.password = element['password'];
+          this._user.email = element['email'];
+          this._user.portfolio = [];
+        return true;
+      }));
+    }
+
     // $http.get(loginURL).then(function (response) {
     //     //we assume ther would be only one user with this email!!
     //     if (response.data.length === 0)
