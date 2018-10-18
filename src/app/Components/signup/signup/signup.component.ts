@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl} from '@angular/forms';
+import {Router} from "@angular/router";
 
 import { UserService } from '../../../Services/User/user.service'
 
@@ -12,7 +13,8 @@ export class SignupComponent implements OnInit {
   
   signInForm : FormGroup;
 
-  constructor(private _userSrv: UserService) { }
+  constructor(private _userSrv: UserService,
+              private _route: Router) { }
 
   ngOnInit() {
     this.signInForm = new FormGroup({
@@ -27,7 +29,8 @@ export class SignupComponent implements OnInit {
     console.log(this.signInForm.value)
     this._userSrv.signInNewUser(this.signInForm.value).subscribe(
       reply => {
-        console.log("user created")
+        console.log("user created");
+        this._route.navigate(['/home']);
       }
     )
   }
