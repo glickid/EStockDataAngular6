@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit {
       this.quantity = 6;
 
     @HostListener('window:resize', ['$event']);
+
     this.getNDXinfo();
     this.getGainers();
     this.getLosers();
