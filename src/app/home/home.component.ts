@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../Services/Data/data.service';
 import { interval, Subscription } from 'rxjs';
+import { UserService } from '../Services/User/user.service'
+import { User } from '../Services/User/user';
 
 @Component({
+  // providers:[UserComponent ],
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
@@ -17,8 +20,14 @@ export class HomeComponent implements OnInit {
   currenciesArr = [];
   public innerWidth: any;
   subscription: Subscription;
+  activeUser : User;
+  //  = {id:-1,fname:"",lname:"",email:"",password:"",
+  //                     portfolio:[]}
 
-  constructor(private _dataService: DataService) { }
+  constructor(private _dataService: DataService,
+              private _userSrv: UserService ) { 
+                this.activeUser = this._userSrv.getActiveUser();
+              }
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
@@ -44,6 +53,19 @@ export class HomeComponent implements OnInit {
       this.quantity = 3;
 
     this.getNDXinfo();
+  }
+
+  isUserLoggedIn() {
+    return this._userSrv.isLoggedIn();
+  }
+
+  login() {
+    this._userSrv.login("yossi@yossi.com", "123")
+      // .subscribe((data: User) => console.log(data) );
+      .subscribe((data: User) => 
+      {
+        this.activeUser = data;
+      });
   }
 
   updateNdxLength(newValue) {
@@ -77,16 +99,10 @@ export class HomeComponent implements OnInit {
   getGainers()
   {
     this._dataService.getGainersList().subscribe((data) => {
-      // for (var i = 0; i < data.length; i++) {
-        // this.gainersList = data; //.slice(0);;
-      // }
+     
       let sortedArray : any = [];
       this.gainersList.length = 0;
-      // for (let k of Object.keys(data)) {
-      //   let value = data[k];
-      //   unsortedArray.push(value);
-      // }
-
+      
       sortedArray = data.sort((obj1, obj2) => {
         if (obj1.changePercent < obj2.changePercent) {
             return 1;
@@ -99,9 +115,6 @@ export class HomeComponent implements OnInit {
         return 0;
       });
       this.gainersList = sortedArray.slice(0,5);
-    // }, function (err) {
-    //   console.log(err);
-    // })
     });
   }
 
@@ -124,9 +137,6 @@ export class HomeComponent implements OnInit {
       });
       this.loosersList = sortedArray.slice(0,5);
     });
-    // }, function (err) {
-    //   console.log(err);
-    // })
   }
 
   getMostActive() {
@@ -161,7 +171,7 @@ export class HomeComponent implements OnInit {
 
     this.currenciesArr.length = 0;
 
-   for (let i = 1; i < currArr.length; i++) {
+    for (let i = 1; i < currArr.length; i++) {
 //         $timeout(getCurrencyValue.bind(null, C1, C2),
 //             (30000 + (15000 * (i - 1))))
 //     }
@@ -188,5 +198,6 @@ export class HomeComponent implements OnInit {
     // });
     // if (i=== (currArr.length-1))
       // this.subscription.unsubscribe();
+    }
   }
 }

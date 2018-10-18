@@ -93,8 +93,8 @@
             </div>
         </div>
         <div class="col-md-6 col-sm-6">
-            <!-- <div class="jumbotron jumbotron-fluid mt-5" [hidden]="isUserLoggedIn()"> -->
-            <div class="jumbotron jumbotron-fluid mt-5">
+            <div class="jumbotron jumbotron-fluid mt-5" [hidden]="isUserLoggedIn()">
+            <!-- <div class="jumbotron jumbotron-fluid mt-5"> -->
                 <div id="main-container" class="container">
                     <img id="main-icon" class="d-inline-block" src="assests/1477521928_10_icon-icons.com_74620.png" alt=""
                         width="50px">
@@ -116,10 +116,10 @@
                         </div>
                 </div>
             </div>
-            <!-- <div [hidden]="!isUserLoggedIn()" class="container bg-light mt-5"> -->
-            <div class="container bg-light mt-5">
-                <!-- <h1 class="display-5">Welcome {{activerUser.fname}}</h1> -->
-                <h1 class="display-5">Welcome </h1>
+            <div [hidden]="!isUserLoggedIn()" class="container bg-light mt-5">
+            <!-- <div class="container bg-light mt-5"> -->
+                <h1 class="display-5">Welcome {{activeUser.fname}}</h1>
+                <!-- <h1 class="display-5">Welcome </h1> -->
                 <div class="lead mt-2">
                     <a class="btn btn-primary btn-lg action-btn" href="" role="button" (click)="managePortfolio()">
                         Manage my virtaul stock-portfolio</a>

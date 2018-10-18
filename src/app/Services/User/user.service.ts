@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { map } from 'rxjs/operators'
 import { User } from './user';
 
 
@@ -10,20 +10,52 @@ import { User } from './user';
 })
 export class UserService {
 
+  private _user: User = {id:-1,fname:"",lname:"",email:"",password:"",
+                        portfolio:[]}
+
   constructor (private http: HttpClient) {};
 
   login(email:string, password:string) : Observable<User> {
 
     let loginURL:string = "https://estockdata.herokuapp.com/users?email=" + email;
 
+     return this.http.get(loginURL)
+      .pipe(map( element => {
+        this._user.id = element[0]['id'];
+        this._user.fname = element[0]['fname'];
+        this._user.lname = element[0]['lname'];
+        this._user.password = element[0]['password'];
+        this._user.email = element[0]['email'];
+        for ( let i=0; i<element[0]['portfolio'].length; i++)
+        {
+          this._user.portfolio.push(element[0]['portfolio'][i]);
+        }
+        return this._user;
+      }));
+    }
 
-    return this.http.get<User>(loginURL);
-                        // ...and calling .json() on the response to return data
-                        //  .map((res:Response) => res.json())
-                         //...errors if any
-                        //  .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
-        
-     }
+    logout() {
+      this._user.fname = "";
+      this._user.id = -1;
+      this._user.lname = "";
+      this._user.password = "";
+      this._user.portfolio.length = 0;
+      this._user.email = "";
+    }
+
+    isLoggedIn() {
+      if (this._user.id !== -1) {
+        return true;
+      }
+      return false;
+    }
+
+    getActiveUser() {
+      // if (this._user.id !== -1)
+        return this._user;
+      // else 
+        // return null;
+    }
     // $http.get(loginURL).then(function (response) {
     //     //we assume ther would be only one user with this email!!
     //     if (response.data.length === 0)
