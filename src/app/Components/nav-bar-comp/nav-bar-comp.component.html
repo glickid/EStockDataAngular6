@@ -39,8 +39,8 @@
               <a class="nav-link" href="signup">Sign Up</a>
           </li>
           <li class="nav-item" [hidden]="isUserLoggedIn()">
-              <!-- <a href="javascript:void(0)" class="nav-link" data-toggle="modal" data-target="#loginModal">Login</a> -->
-              <a href="javascript:void(0)" class="nav-link" (click)="login()">Login</a>
+              <a href="javascript:void(0)" class="nav-link" data-toggle="modal" data-target="#loginModal">Login</a>
+              <!-- <a href="javascript:void(0)" class="nav-link" (click)="login()">Login</a> -->
           </li>
           <li class="nav-item" [hidden]=" ! isUserLoggedIn()">
               <a class="nav-link" href="javascript:void(0)" (click)="logout()">Logout</a>

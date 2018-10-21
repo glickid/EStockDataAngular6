@@ -11,13 +11,13 @@ import { UserService } from '../../../Services/User/user.service'
 })
 export class SignupComponent implements OnInit {
   
-  signInForm : FormGroup;
+  signUpForm : FormGroup;
 
   constructor(private _userSrv: UserService,
               private _route: Router) { }
 
   ngOnInit() {
-    this.signInForm = new FormGroup({
+    this.signUpForm = new FormGroup({
       fname: new FormControl(),
       lname: new FormControl(),
       email: new FormControl(),
@@ -26,8 +26,8 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.signInForm.value)
-    this._userSrv.signInNewUser(this.signInForm.value).subscribe(
+    console.log(this.signUpForm.value)
+    this._userSrv.signInNewUser(this.signUpForm.value).subscribe(
       reply => {
         console.log("user created");
         this._route.navigate(['/home']);

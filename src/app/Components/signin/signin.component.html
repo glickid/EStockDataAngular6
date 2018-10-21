@@ -1,0 +1,23 @@
+<div>
+  <div class="modal-body">
+    <form class="form-signin" [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+    <h2 class="form-signin-heading">Please login</h2>
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input formControlName="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required
+      autofocus>
+    <label for="inputPassword" class="sr-only">Password hh</label>
+    <input formControlName="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    <!-- <div class="checkbox">
+                        <label>
+                              <input type="checkbox" value="remember-me"> Remember me
+                          </label>
+                      </div> -->
+    <!-- <button [(click)]="login()" class="btn btn-lg btn-primary btn-block" type="button">Log me in</button> -->
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Log me in</button>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="resetLoginModal()">Close</button> -->
+    <button type="button" class="btn btn-secondary" (click)="resetLoginModal($event)">Close</button>
+  </div>
+</div>

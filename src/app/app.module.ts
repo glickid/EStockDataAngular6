@@ -15,6 +15,7 @@ import { SignupComponent } from './Components/signup/signup/signup.component';
 import { PortfolioComponent } from './Components/portfolio/portfolio.component';
 import { StockChartsComponent } from './Components/stock-charts/stock-charts.component';
 import { CryptoCurrenciesComponent } from './Components/crypto-currencies/crypto-currencies.component';
+import { SigninComponent } from './Components/signin/signin.component';
 // import { portfolio } from './Services/Portfolio/Portfolio';
 // import { Alert } from './Services/Alerts/Alert';
 
@@ -28,7 +29,8 @@ import { CryptoCurrenciesComponent } from './Components/crypto-currencies/crypto
     SignupComponent,
     PortfolioComponent,
     StockChartsComponent,
-    CryptoCurrenciesComponent
+    CryptoCurrenciesComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,
