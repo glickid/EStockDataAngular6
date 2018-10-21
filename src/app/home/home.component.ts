@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   loosersList = [];
   mostActiveList = [];
   currenciesArr = [];
-  public innerWidth: any;
+  public innerHeight: any;
   subscription: Subscription;
   activeUser : User;
   //  = {id:-1,fname:"",lname:"",email:"",password:"",
@@ -37,8 +37,8 @@ export class HomeComponent implements OnInit {
               }
 
   ngOnInit() {
-    this.innerWidth = window.innerWidth;
-    if (this.innerWidth > 1200)
+    this.innerHeight = window.innerHeight;
+    if (this.innerHeight > 300)
       this.quantity = 6;
 
     
@@ -53,8 +53,8 @@ export class HomeComponent implements OnInit {
   }
 
   onResize(event) {
-    this.innerWidth = window.innerWidth;
-    if (this.innerWidth > 1200)
+    this.innerHeight = window.innerHeight;
+    if (this.innerHeight > 300)
       this.quantity = 6;
     else
       this.quantity = 3;
