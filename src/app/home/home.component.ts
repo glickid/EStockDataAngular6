@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { HostListener } from '@angular/core';
+
 import { DataService } from '../Services/Data/data.service';
 import { interval, Subscription } from 'rxjs';
 import { UserService } from '../Services/User/user.service'
 import { User } from '../Services/User/user';
+
 
 @Component({
   // providers:[UserComponent ],
@@ -10,6 +13,9 @@ import { User } from '../Services/User/user';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
+@HostListener('window:resize', ['$event'])
+
 export class HomeComponent implements OnInit {
 
   quantity: number = 3;
@@ -24,6 +30,7 @@ export class HomeComponent implements OnInit {
   //  = {id:-1,fname:"",lname:"",email:"",password:"",
   //                     portfolio:[]}
 
+
   constructor(private _dataService: DataService,
               private _userSrv: UserService ) { 
                 this.activeUser = this._userSrv.getActiveUser();
@@ -34,7 +41,6 @@ export class HomeComponent implements OnInit {
     if (this.innerWidth > 1200)
       this.quantity = 6;
 
-    @HostListener('window:resize', ['$event']);
     
     this.getNDXinfo();
     this.getGainers();

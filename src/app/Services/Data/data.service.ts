@@ -121,24 +121,24 @@ getCurrencyValue(C1, C2) : Observable<object | any[]> {
     };
   }
 
-  getGainersList() : Observable<object | any[]> {
+  getGainersList() : Observable<any[]> {
     var theUrl = "https://api.iextrading.com/1.0/stock/market/list/gainers";
 
-    return this.http.get(theUrl).pipe(
+    return this.http.get<any[]>(theUrl).pipe(
       catchError(this.handleError('Could not get Gainers info', [])));
   }
 
-  getLosersList() : Observable<object | any[]> {
+  getLosersList() : Observable<any[]> {
     var theUrl = "https://api.iextrading.com/1.0/stock/market/list/losers";
 
-    return this.http.get(theUrl).pipe(
+    return this.http.get<any[]>(theUrl).pipe(
       catchError(this.handleError('Could not get Losers info', [])));
   }
 
-  getMostActive() : Observable<object | any[]> {
+  getMostActive() : Observable<any[]> {
     var theUrl = "https://api.iextrading.com/1.0/stock/market/list/mostactive";
 
-    return this.http.get(theUrl).pipe(
+    return this.http.get<any[]>(theUrl).pipe(
       catchError(this.handleError('Could not get Active info', [])));
   }
 }
