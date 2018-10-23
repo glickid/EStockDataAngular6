@@ -21,6 +21,7 @@ export class PortfolioComponent implements OnInit {
   currentUser : User;
   input : string = "";
   stockList: any[] = [];
+  stockArr: any[] = [];
 
   constructor(private _userSrv: UserService,
               private _dataSrv: DataService,
@@ -53,4 +54,42 @@ export class PortfolioComponent implements OnInit {
   addStockToPortfolio(stock) {
     console.log(stock.symbol);
   }
+
+  getAlertsInfo(stock) {
+    console.log(stock.symbol);
+
+  }
+
+  removeStock (stock) {
+    console.log(stock.symbol);
+  }
+
+  refreshStock (stock) {
+    console.log(stock.symbol);
+  }
+
+  getStockInfo(stock) {
+    console.log(stock.symbol);
+  }
+
+  setAlertInfo(stock) {
+    console.log(stock.symbol);
+  }
+ 
+  openStockChart(stock) {
+    console.log(stock.symbol);
+  }
+
+  removeAlert(alertid, stockSymbol) {
+    console.log(stockSymbol);
+  }
+
+  resetAlertModal() {
+    console.log("resetAlertModal");
+  }
+
+  setStockAlert() {
+    console.log("setStockAlert");
+  }
+  
 }

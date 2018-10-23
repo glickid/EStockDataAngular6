@@ -9,7 +9,7 @@
       </form>
   </div>
 </div>
-      <!-- <div>
+      <div>
           <table id="portfolio-table" role="table">
               <thead role="rowgroup">
                   <tr role="row">
@@ -24,35 +24,35 @@
                       <th role="columnheader">Action</th>
                   </tr>
               </thead>
-              <tbody role="rowgroup" ng-repeat="stock in stockArr" ng-class="{'mb-5':$last}">
+              <tbody role="rowgroup" *ngFor="let stock of stockArr; let last=last" [class.mb-5]="last">
                   <tr class="portfolio-row" role="row">
-                      <td role="cell" data-toggle="collapse" data-target="#{{stock.symbol}}" class="clickable" ng-click="getAlertsInfo(stock.symbol)">
+                      <td role="cell" data-toggle="collapse" [attr.data-target]="'#' + theme.themeId" class="clickable" (click)="getAlertsInfo(stock.symbol)">
                           {{stock.name}}</td>
                       <td role="cell">{{stock.symbol}}</td>
                       <td role="cell">
-                          <span ng-class="(stock.dayChange<0)? 'text-danger':'text-success'">{{stock.dayChange}}%</span>
+                          <span [ngClass]="(stock.dayChange<0)? 'text-danger':'text-success'">{{stock.dayChange}}%</span>
                       </td>
                       <td role="cell">
-                          <span ng-class="(stock.overallProfit<0)? 'text-danger':'text-success'">{{stock.overallProfit}}%</span>
+                          <span [ngClass]="(stock.overallProfit<0)? 'text-danger':'text-success'">{{stock.overallProfit}}%</span>
                       </td>
                       <td role="cell">{{stock.pprice}}</td>
                       <td role="cell">{{stock.pdate}}</td>
                       <td role="cell">{{stock.cprice}}</td>
                       <td role="cell">{{stock.dvolume}}</td>
                       <td role="cell" id="actions-td">
-                          <button type="button" class="btn btn-danger" ng-click="removeStock(stock)">
+                          <button type="button" class="btn btn-danger" (click)="removeStock(stock)">
                               <i class="far fa-trash-alt action-icon"></i>
                           </button>
-                          <button type="button" class="btn btn-success" ng-click="refreshStock(stock)">
+                          <button type="button" class="btn btn-success" (click)="refreshStock(stock)">
                               <i class="fas fa-sync-alt action-icon"></i>
                           </button>
-                          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#stockInfoModal" ng-click="getStockInfo(stock)">
+                          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#stockInfoModal" (click)="getStockInfo(stock)">
                               <i class="fas fa-info action-icon"></i>
                           </button>
-                          <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#stockAlertModal" ng-click="setAlertInfo(stock)">
+                          <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#stockAlertModal" (click)="setAlertInfo(stock)">
                               <i class="far fa-bell action-icon"></i>
                           </button>
-                          <button type="button" class="btn btn-dark text-white" ng-click="openStockChart(stock, '1m')">
+                          <button type="button" class="btn btn-dark text-white" (click)="openStockChart(stock, '1m')">
                               <i class="fas fa-chart-line action-icon"></i>
                           </button>
                       </td>
@@ -61,12 +61,12 @@
                       <td colspan="3">
                           <div id="{{stock.symbol}}" class="collapse">
                               Alerts:
-                              <div ng-repeat="alert in alertsInfoObj[stock.symbol]">
+                              <div *ngFor="let alert of alertsInfoObj[stock.symbol]">
                                   <div class="text-info clearfix">
                                       <p class="d-inline-block">
                                           Type: {{alert.alertType}} Price: {{alert.price}} Triggerd: {{alert.triggerd==true?'Yes':'No'}}
                                       </p>
-                                      <button type="button" class="btn btn-danger float-right" ng-click="removeAlert(alert.id, alert.stockSymbol)">
+                                      <button type="button" class="btn btn-danger float-right" (click)="removeAlert(alert.id, alert.stockSymbol)">
                                           <i class="far fa-trash-alt action-icon"></i>
                                       </button>
                                   </div>
@@ -77,18 +77,18 @@
               </tbody>
           </table>
       </div>
-      <div class="empty-portfolio text-center mt-5 bg-success" ng-show="stockArr.length===0">
+      <div class="empty-portfolio text-center mt-5 bg-success" *ngIf="stockArr.length===0">
           <p class="mb-0">Use the search-box to look for your desired stock</p>
           <p class="mb-0">On opend list - click to add to portfolio </p>
-      </div> -->
+      </div> 
 
-      <!-- Stock Info Modal -->
-      <!-- <div class="modal fade" id="stockInfoModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+      <!-- Stock Info Modal --> 
+      <div class="modal fade" id="stockInfoModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
           <div class="modal-dialog" role="document">
               <div class="modal-content bg-info">
                   <div class="modal-header">
                       <h5 class="form-signin-heading">{{stockInfo.Name}} (symbol:{{stockInfo.Symbol}})</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="resetLoginModal()">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
 
                       </button>
@@ -99,16 +99,16 @@
                           <small class="stock-info-item">Market Cap. : {{stockInfo.marketcap | number}}</small>
                       </p>
                       <p>
-                          <small class="stock-info-item">Beta : {{stockInfo.beta | number:2}}</small>
+                          <small class="stock-info-item">Beta : {{stockInfo.beta | number:'1.2-2'}}</small>
                       </p>
                       <p>
-                          <small class="stock-info-item">High 52 Weeks : {{stockInfo.week52high | number:2}}</small>
+                          <small class="stock-info-item">High 52 Weeks : {{stockInfo.week52high | number:'1.2-2'}}</small>
                       </p>
                       <p>
-                          <small class="stock-info-item">Low 52 Weeks : {{stockInfo.week52low | number:2}}</small>
+                          <small class="stock-info-item">Low 52 Weeks : {{stockInfo.week52low | number:'1.2-2'}}</small>
                       </p>
                       <p>
-                          <small class="stock-info-item">Change 52 Weeks : {{stockInfo.week52change | number:2}}%</small>
+                          <small class="stock-info-item">Change 52 Weeks : {{stockInfo.week52change | number:'1.2-2'}}%</small>
                       </p>
                       <p>
                           <small class="stock-info-item">Short Interest : {{stockInfo.shortInterest | number}}</small>
@@ -150,7 +150,7 @@
                           <small class="stock-info-item">EPS Surprise $ : {{stockInfo.EPSSurpriseDollar | number}}</small>
                       </p>
                       <p>
-                          <small class="stock-info-item">EPS Surprise % : {{stockInfo.EPSSurprisePercent | number:2}}%</small>
+                          <small class="stock-info-item">EPS Surprise % : {{stockInfo.EPSSurprisePercent | number:'1.2-2'}}%</small>
                       </p>
                       <p>
                           <small class="stock-info-item">EBITDA : {{stockInfo.EBITDA | number}}</small>
@@ -192,16 +192,16 @@
                           <small class="stock-info-item">Profit Margin : {{stockInfo.profitMargin}}</small>
                       </p>
                       <p>
-                          <small class="stock-info-item">Price to Sales : {{stockInfo.priceToSales | number:2}}</small>
+                          <small class="stock-info-item">Price to Sales : {{stockInfo.priceToSales | number:'1.2-2'}}</small>
                       </p>
                       <p>
                           <small class="stock-info-item">Price to Book : {{stockInfo.priceToBook}}</small>
                       </p>
                       <p>
-                          <small class="stock-info-item">200 days Moving Avg. : {{stockInfo.day200MovingAvg | number:2}}</small>
+                          <small class="stock-info-item">200 days Moving Avg. : {{stockInfo.day200MovingAvg | number:'1.2-2'}}</small>
                       </p>
                       <p>
-                          <small class="stock-info-item">50 days Moving Avg. : {{stockInfo.day50MovingAvg | number:2}}</small>
+                          <small class="stock-info-item">50 days Moving Avg. : {{stockInfo.day50MovingAvg | number:'1.2-2'}}</small>
                       </p>
                       <p>
                           <small class="stock-info-item">Institution : {{stockInfo.institutionPercent}}%</small>
@@ -210,51 +210,50 @@
                           <small class="stock-info-item">Insider : {{stockInfo.insiderPercent}}%</small>
                       </p>
                       <p>
-                          <small class="stock-info-item">Short Ratio : {{stockInfo.shortRatio | number:2}}</small>
+                          <small class="stock-info-item">Short Ratio : {{stockInfo.shortRatio | number:'1.2-2'}}</small>
                       </p>
                       <p>
-                          <small class="stock-info-item">5 years Change : {{stockInfo.year5ChangePercent | number:2}}%</small>
+                          <small class="stock-info-item">5 years Change : {{stockInfo.year5ChangePercent | number:'1.2-2'}}%</small>
                       </p>
                       <p>
-                          <small class="stock-info-item">2 years Change : {{stockInfo.year2ChangePercent | number:2}}%</small>
+                          <small class="stock-info-item">2 years Change : {{stockInfo.year2ChangePercent | number:'1.2-2'}}%</small>
                       </p>
                       <p>
-                          <small class="stock-info-item">1 years Change : {{stockInfo.year1ChangePercent | number:2}}%</small>
+                          <small class="stock-info-item">1 years Change : {{stockInfo.year1ChangePercent | number:'1.2-2'}}%</small>
                       </p>
                       <p>
-                          <small class="stock-info-item">YTD Change : {{stockInfo.ytdChangePercent | number:2}}%</small>
+                          <small class="stock-info-item">YTD Change : {{stockInfo.ytdChangePercent | number:'1.2-2'}}%</small>
                       </p>
                       <p>
-                          <small class="stock-info-item">6 mon. Change : {{stockInfo.month6ChangePercent | number:2}}%</small>
+                          <small class="stock-info-item">6 mon. Change : {{stockInfo.month6ChangePercent | number:'1.2-2'}}%</small>
                       </p>
                       <p>
-                          <small class="stock-info-item">3 mon. Change : {{stockInfo.month3ChangePercent | number:2}}%</small>
+                          <small class="stock-info-item">3 mon. Change : {{stockInfo.month3ChangePercent | number:'1.2-2'}}%</small>
                       </p>
                       <p>
-                          <small class="stock-info-item">1 mon. Change : {{stockInfo.month1ChangePercent | number:2}}%</small>
+                          <small class="stock-info-item">1 mon. Change : {{stockInfo.month1ChangePercent | number:'1.2-2'}}%</small>
                       </p>
                       <p>
-                          <small class="stock-info-item">5 days Change : {{stockInfo.day5ChangePercent | number:2}}%</small>
+                          <small class="stock-info-item">5 days Change : {{stockInfo.day5ChangePercent | number:'1.2-2'}}%</small>
                       </p>
                       <p>
-                          <small class="stock-info-item">30 days Change : {{stockInfo.day30ChangePercent | number:2}}%</small>
+                          <small class="stock-info-item">30 days Change : {{stockInfo.day30ChangePercent | number:'1.2-2'}}%</small>
                       </p>
-                      </p>
-                  </div>
+                    </div>
                   <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="resetLoginModal()">Close</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   </div>
               </div>
           </div>
-      </div> -->
+      </div> 
 
       <!-- Stock Alert Modal -->
-      <!-- <div class="modal fade" id="stockAlertModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+      <div class="modal fade" id="stockAlertModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
           <div class="modal-dialog" role="document">
               <div class="modal-content">
                   <div class="modal-header">
                       <h2 class="form-signin-heading">Set Alert for {{alertStock}} (symbol: {{alertSymbol}})</h2>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="resetAlertModal()">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="resetAlertModal()">
                           <span aria-hidden="true">&times;</span>
                       </button>
                   </div>
@@ -262,19 +261,19 @@
                       <form class="form-signin">
                           <h5>Current price: {{alertCurrentPrice}}</h5>
                           <label for="alert-type">Select Alert type</label>
-                          <select ng-model="alertType" id="alert-type" class="form-control" required>
+                          <select [(ngModel)]="alertType" [ngModelOptions]="{standalone: true}" id="alert-type" class="form-control" required>
                               <option value="">---Please select---</option>
                               <option value="take-profit">Take Profit</option>
                               <option value="stop-loss">Stop Loss</option>
                           </select>
                           <label for="alert-price">Enter Price to set Alert for</label>
-                          <input ng-model="alertPrice" type="number" id="alert-price" class="form-control" required autofocus>
-                          <button ng-click="setStockAlert()" class="btn btn-lg btn-primary btn-block" type="button">Set Alert</button>
+                          <input [(ngModel)]="alertPrice" [ngModelOptions]="{standalone: true}" type="number" id="alert-price" class="form-control" required autofocus>
+                          <button (click)="setStockAlert()" class="btn btn-lg btn-primary btn-block" type="button">Set Alert</button>
                       </form>
-                      <div id="alert-error" class="alert alert-danger" role="alert" ng-hide='errorMessage===""'>{{errorMessage}}</div>
+                      <div id="alert-error" class="alert alert-danger" role="alert" *ngIf='!errorMessage===""'>{{errorMessage}}</div>
                   </div>
                   <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="resetLoginModal()">Close</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="resetAlertModal()">Close</button>
                   </div>
               </div>
           </div> -->
