@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import * as bootstrap from "bootstrap";
 
 import { AppComponent } from './app.component';
 import { NavBarCompComponent } from './Components/nav-bar-comp/nav-bar-comp.component';
