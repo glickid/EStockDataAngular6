@@ -10,7 +10,37 @@ import { of } from 'rxjs';
 })
 export class DataService {
 
-  constructor(private http: HttpClient) { }
+  stocksArr: any[] = [];
+
+
+  constructor(private http: HttpClient) { 
+    if (this.stocksArr.length === 0) {
+        this.getStockSymboles().subscribe(response => {
+          this.stocksArr = response;
+        });
+    }
+  }
+
+  getStockSymboles() : Observable<any[]> {
+    var theUrl = "https://api.iextrading.com/1.0/ref-data/symbols";
+
+    return this.http.get<any[]>(theUrl).pipe(
+      catchError(this.handleError('Could not get Active info', [])));
+
+    // return this.http.get(theUrl).pipe(function (response) {
+    //     for (var i = 0; i < response.data.length; i++) {
+    //         if (response.data[i].isEnabled === true) {
+    //             stocksArr.push(response.data[i]);
+    //         }
+    //     }
+    //     async.resolve(stocksArr);
+    // }, function (err) {
+    //     $log.error(err);
+    //     async.reject("failed to get symbol list");
+    // });
+
+    // return async.promise;
+  }
 
   getRTperformance() {
     // var key = configSrv.getStockInfoApiKey();
@@ -140,5 +170,26 @@ getCurrencyValue(C1, C2) : Observable<object | any[]> {
 
     return this.http.get<any[]>(theUrl).pipe(
       catchError(this.handleError('Could not get Active info', [])));
+  }
+
+ searchStock(searchStr) {
+    var stockList = []
+   
+    var lowerName = "";
+    var lowerSym = "";
+    var lowerStr = searchStr.toLowerCase();
+
+    for (var i = 0; i < this.stocksArr.length; i++) {
+        lowerName = this.stocksArr[i].name.toLowerCase();
+        lowerSym = this.stocksArr[i].symbol.toLowerCase();
+
+        if ((lowerName.includes(lowerStr)) ||
+            (lowerSym.includes(lowerStr))) {
+            stockList.push ( {"name" : this.stocksArr[i].name, 
+                              "symbol" : this.stocksArr[i].symbol});
+        }
+    }
+
+    return stockList;
   }
 }

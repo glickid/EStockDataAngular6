@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/'; 
+
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'
@@ -9,10 +11,25 @@ import { User } from './user';
 })
 export class UserService {
 
-  private _user: User = {id:-1,fname:"",lname:"",email:"",password:"",
-                        portfolio:[]}
+  static user: User;// = {id:-1,fname:"",lname:"",email:"",password:"", portfolio:[]}
+  // private _user = new BehaviorSubject<User>(this.user);
+  static singletonInstance: UserService;
+   
+  constructor (private http: HttpClient) {
+    if (!UserService.singletonInstance) {
+      // construct object
+      UserService.singletonInstance = this;
+    // let users_ = [this.user];
+    // this._user.next(users_);   
+    }
+    if (!UserService.user) {
+      UserService.user = {id:-1,fname:"",lname:"",email:"",password:"",
+        portfolio:[]}
+    }
 
-  constructor (private http: HttpClient) {};
+    return UserService.singletonInstance;  
+  }          
+  
 
   login(email:string, password:string) : Observable<User> {
 
@@ -20,40 +37,50 @@ export class UserService {
 
      return this.http.get(loginURL)
       .pipe(map( element => {
-        this._user.id = element[0]['id'];
-        this._user.fname = element[0]['fname'];
-        this._user.lname = element[0]['lname'];
-        this._user.password = element[0]['password'];
-        this._user.email = element[0]['email'];
+        UserService.user = {id:element[0]['id'],
+                          fname:element[0]['fname'],
+                          lname:element[0]['lname'],
+                          email:element[0]['email'],
+                          password:element[0]['password'],
+                          portfolio:[]}
+        // user.id = element[0]['id'];
+        // user.fname = element[0]['fname'];
+        // user.lname = element[0]['lname'];
+        // user.password = element[0]['password'];
+        // user.email = element[0]['email'];
         for ( let i=0; i<element[0]['portfolio'].length; i++)
         {
-          this._user.portfolio.push(element[0]['portfolio'][i]);
+          UserService.user.portfolio.push(element[0]['portfolio'][i]);
         }
-        return this._user;
+        //let users_ = [user, ...this._user.getValue()];
+        // this._user.next(user);
+        return UserService.user; //.asObservable();
       }));
     }
 
     logout() : void {
-      this._user.fname = "";
-      this._user.id = -1;
-      this._user.lname = "";
-      this._user.password = "";
-      this._user.portfolio.length = 0;
-      this._user.email = "";
+      UserService.user.fname = "";
+      UserService.user.id = -1;
+      UserService.user.lname = "";
+      UserService.user.password = "";
+      UserService.user.portfolio.length = 0;
+      UserService.user.email = "";
     }
 
     isLoggedIn() : boolean {
-      if (this._user.id !== -1) {
+      // let user  = UserService._user.getValue();
+
+      if (UserService.user.id !== -1) {
         return true;
       }
       return false;
     }
 
     getActiveUser() : User {
-      // if (this._user.id !== -1)
-        return this._user;
-      // else 
-        // return null;
+      if (UserService.user.id !== -1)
+        return UserService.user;//.getValue();
+      else 
+         return null;
     }
 
     signInNewUser(newUser: {} ) : Observable<boolean> {
@@ -66,12 +93,12 @@ export class UserService {
 
       return this.http.post(loginURL, user)
         .pipe(map( element => {
-          this._user.id = element['id'];
-          this._user.fname = element['fname'];
-          this._user.lname = element['lname'];
-          this._user.password = element['password'];
-          this._user.email = element['email'];
-          this._user.portfolio = [];
+          UserService.user.id = element['id'];
+          UserService.user.fname = element['fname'];
+          UserService.user.lname = element['lname'];
+          UserService.user.password = element['password'];
+          UserService.user.email = element['email'];
+          UserService.user.portfolio = [];
         return true;
       }));
     }

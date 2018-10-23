@@ -93,7 +93,7 @@
             </div>
         </div>
         <div class="col-md-6 col-sm-6">
-            <div class="jumbotron jumbotron-fluid mt-5" [hidden]="isUserLoggedIn()">
+            <div class="jumbotron jumbotron-fluid mt-5" *ngIf="!isUserLoggedIn()">
             <!-- <div class="jumbotron jumbotron-fluid mt-5"> -->
                 <div id="main-container" class="container">
                     <img id="main-icon" class="d-inline-block" src="/src/assets/1477521928_10_icon-icons.com_74620.png" alt=""
@@ -109,27 +109,27 @@
                             <li>See crypto currencies</li>
                         </ul>
                         <div class="lead mt-2 float-right">
-                            <a id="signin-btn" class="btn btn-primary btn-lg" role="button" href="signup">Register
+                            <a id="signin-btn" class="btn btn-primary btn-lg" role="button" routerLink="signup">Register
                                 Now!</a>
-                            <a id="login-btn" class="btn btn-primary btn-lg" href="" role="button" data-toggle="modal"
+                            <a id="login-btn" class="btn btn-primary btn-lg" href="javascript:void(0)" role="button" data-toggle="modal"
                                 data-target="#loginModal">Login</a>
                         </div>
                 </div>
             </div>
-            <div [hidden]="!isUserLoggedIn()" class="container bg-light mt-5">
+            <div *ngIf="isUserLoggedIn()" class="container bg-light mt-5">
             <!-- <div class="container bg-light mt-5"> -->
                 <h1 class="display-5">Welcome {{activeUser.fname}}</h1>
                 <!-- <h1 class="display-5">Welcome </h1> -->
                 <div class="lead mt-2">
-                    <a class="btn btn-primary btn-lg action-btn" href="/portfolio" role="button">
+                    <a class="btn btn-primary btn-lg action-btn" routerLink="/portfolio" role="button">
                         Manage my virtaul stock-portfolio</a>
                 </div>
                 <div class="lead mt-2">
-                    <a class="btn btn-primary btn-lg action-btn" href="/charts" role="button" (click)="seeCharts()">
+                    <a class="btn btn-primary btn-lg action-btn" routerLink="/charts" role="button" (click)="seeCharts()">
                         See detailed stock-charts</a>
                 </div>
                 <div class="lead mt-2 pb-4">
-                    <a class="btn btn-primary btn-lg action-btn" href="/crypto" role="button" (click)="seeCryptoCurrencies()">
+                    <a class="btn btn-primary btn-lg action-btn" routerLink="/crypto" role="button" (click)="seeCryptoCurrencies()">
                         See crypto currencies</a>
                 </div>
             </div>
@@ -155,7 +155,7 @@
                         <div *ngFor="let item2 of item['value'] | keyvalue">
                             <!-- ng-class="{'mb-3':$last}" -->
                             <small>{{item2.key}}:
-                                <span class="float-right">{{item2.value}}</span>
+                                <span class="float-right">{{item2.value | number:'1.2-2'}}</span>
                             </small>
                         </div>
                     </ng-container>

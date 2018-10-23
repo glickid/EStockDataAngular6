@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HostListener } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { DataService } from '../Services/Data/data.service';
 import { interval, Subscription } from 'rxjs';
@@ -38,7 +39,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.innerHeight = window.innerHeight;
-    if (this.innerHeight > 300)
+    console.log(this.innerHeight);
+    if (this.innerHeight > 600)
       this.quantity = 6;
 
     
@@ -47,14 +49,16 @@ export class HomeComponent implements OnInit {
     this.getLosers();
     this.getMostActive();
     this.getCurrencyValues();
+    this.activeUser = this._userSrv.getActiveUser();
   }
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
+  // ngOnDestroy() {
+  //   this.subscription.unsubscribe();
+  // }
 
   onResize(event) {
     this.innerHeight = window.innerHeight;
-    if (this.innerHeight > 300)
+    console.log(this.innerHeight);
+    if (this.innerHeight > 600)
       this.quantity = 6;
     else
       this.quantity = 3;
@@ -63,7 +67,16 @@ export class HomeComponent implements OnInit {
   }
 
   isUserLoggedIn() {
-    return this._userSrv.isLoggedIn();
+    if (!this._userSrv.isLoggedIn()) {
+      this.activeUser = this._userSrv.getActiveUser();
+      if (( this.activeUser === null) ||
+          (this.activeUser.id === -1) )
+        return false;
+      else
+          return true;
+    }
+    this.activeUser = this._userSrv.getActiveUser();
+    return true;
   }
 
   login() {
@@ -71,7 +84,7 @@ export class HomeComponent implements OnInit {
       // .subscribe((data: User) => console.log(data) );
       .subscribe((data: User) => 
       {
-        this.activeUser = data;
+        this.activeUser = this._userSrv.getActiveUser();
       });
   }
 

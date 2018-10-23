@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 // import { Observable } from 'rxjs/Rx';
-//mport { Observable } from 'rxjs';
+import { Observable } from 'rxjs';
+import { combineLatest } from "rxjs/operators";
+
 //import { interval } from 'rxjs/observable/interval';
 // import 'rxjs/add/observable/interval';
 import { interval } from 'rxjs';
