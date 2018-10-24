@@ -34,12 +34,12 @@
                     {{stock.name}}</td>
                 <td role="cell">{{stock.symbol}}</td>
                 <td role="cell">
-                    <!-- <span [ngClass]="(stock.dayChange<0)? 'text-danger':'text-success'">{{stock.dayChange}}%</span> -->
-                    <span>2%</span>
+                    <span [ngClass]="(stock.dayChange<0)? 'text-danger':'text-success'">{{stock.dayChange}}%</span>
+                    <!-- <span>2%</span> -->
                 </td>
                 <td role="cell">
-                    <!-- <span [ngClass]="(stock.overallProfit<0)? 'text-danger':'text-success'">{{stock.overallProfit}}%</span> -->
-                    <span>3%</span>
+                    <span [ngClass]="(stock.overallProfit<0)? 'text-danger':'text-success'">{{stock.overallProfit}}%</span>
+                    <!-- <span>3%</span> -->
                 </td>
                 <td role="cell">{{stock.pprice}}</td>
                 <td role="cell">{{stock.pdate}}</td>

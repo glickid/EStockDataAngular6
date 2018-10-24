@@ -21,7 +21,10 @@ export class PortfolioService {
         PortfolioService.stockArr[i].dvolume = stockDataObj["dayVolume"];
         PortfolioService.stockArr[i].dopen = stockDataObj["openPrice"];
         PortfolioService.stockArr[i].alertsArr = stockArrItem.alerts;
-
+        PortfolioService.stockArr[i].dayChange =
+          this.calcDayChange(stockDataObj);
+        PortfolioService.stockArr[i].overallProfit = 
+          this.calcOverallProfit(stockDataObj);
         updated = true;
         break;
       }
@@ -38,7 +41,7 @@ export class PortfolioService {
         "dvolume": stockDataObj["dayVolume"],
         "dopen": stockDataObj["openPrice"],
         "dayChange": this.calcDayChange(stockDataObj),
-        "overallProfit": this.calcOverallProfit(stockDataObj),
+        "overallProfit": this.calcOverallProfit(stockDataObj, stockArrItem["pprice"]),
         "alertsArr": stockArrItem["alertsArr"]
       };
       PortfolioService.stockArr.push(stock);
@@ -64,12 +67,12 @@ export class PortfolioService {
   }
 
   calcDayChange(stock: any) {
-    var num = (((stock.cprice - stock.dopen) / stock.dopen) * 100);
+    var num = (((stock.currentPrice - stock.openPrice) / stock.openPrice) * 100);
     return num.toFixed(2);
   }
 
-  calcOverallProfit(stock: any) {
-    var num = (((stock.cprice - stock.pprice) / stock.pprice) * 100);
+  calcOverallProfit(stock: any, pprice:number) {
+    var num = (((stock.currentPrice - pprice) / pprice) * 100);
     return num.toFixed(2);
   }
 }
