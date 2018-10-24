@@ -10,13 +10,12 @@ import { of } from 'rxjs';
 })
 export class DataService {
 
-  stocksArr: any[] = [];
-
+  static stocksArr: any[] = [];
 
   constructor(private http: HttpClient) { 
-    if (this.stocksArr.length === 0) {
+    if (DataService.stocksArr.length === 0) {
         this.getStockSymboles().subscribe(response => {
-          this.stocksArr = response;
+          DataService.stocksArr = response;
         });
     }
   }
@@ -179,17 +178,55 @@ getCurrencyValue(C1, C2) : Observable<object | any[]> {
     var lowerSym = "";
     var lowerStr = searchStr.toLowerCase();
 
-    for (var i = 0; i < this.stocksArr.length; i++) {
-        lowerName = this.stocksArr[i].name.toLowerCase();
-        lowerSym = this.stocksArr[i].symbol.toLowerCase();
+    for (var i = 0; i < DataService.stocksArr.length; i++) {
+        lowerName = DataService.stocksArr[i].name.toLowerCase();
+        lowerSym = DataService.stocksArr[i].symbol.toLowerCase();
 
         if ((lowerName.includes(lowerStr)) ||
             (lowerSym.includes(lowerStr))) {
-            stockList.push ( {"name" : this.stocksArr[i].name, 
-                              "symbol" : this.stocksArr[i].symbol});
+            stockList.push ( {"name" : DataService.stocksArr[i].name, 
+                              "symbol" : DataService.stocksArr[i].symbol});
         }
     }
 
     return stockList;
+  }
+
+  getStockInfo(name: string, symbol: string, returnIndex: number) {
+    let theUrl: string = "https://api.iextrading.com/1.0/stock/" + 
+                  symbol + "/chart/1m";
+    // let retObj: any{} = {}
+
+    // let reply: Observable<any> =  this.http.get<{}>(theUrl).pipe(
+    //   catchError(this.handleError('Could not get Active info', [])));
+    // let reply: {} = await this.http.get<{}>(theUrl).toPromise()
+   
+    // let repObj: {} = reply.toPromise();
+    // repObj["index"] = returnIndex;
+    // return repObj;
+
+    return new Promise<{}>((resolve, reject) => {
+      // note: could be written `$.get(url).done(resolve).fail(reject);`,
+      //       but I expanded it out for clarity
+      $.get(theUrl).done((data) => {
+          let repdata = {};
+          // infoObj = response.data;
+          var last = data[Object.keys(data)[Object.keys(data).length - 1]];
+
+          repdata["currentPrice"] = last["close"];
+          repdata["openPrice"] = last["open"];
+          repdata["dayVolume"] = last["volume"];
+          repdata["changePercent"] = last["changePercent"];
+          repdata["name"] = name;
+          repdata["symbol"] = symbol;
+          // stockObj["dchange"] =
+          // stockObj["overallP"] =
+          repdata["index"] = returnIndex
+
+          resolve(repdata);
+      }).fail((err) => {
+          reject(err);
+      });
+  });
   }
 }

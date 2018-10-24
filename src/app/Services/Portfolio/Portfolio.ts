@@ -9,6 +9,6 @@ export interface portfolio {
     dvolume: number,
     dopen: number,
     dayChange: string,
-    overallProfit: number,
+    overallProfit: string,
     alertsArr: Alert[]
 }
