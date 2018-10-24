@@ -28,10 +28,7 @@ export class HomeComponent implements OnInit {
   public innerHeight: any;
   subscription: Subscription;
   activeUser : User;
-  //  = {id:-1,fname:"",lname:"",email:"",password:"",
-  //                     portfolio:[]}
-
-
+  
   constructor(private _dataService: DataService,
               private _userSrv: UserService ) { 
                 this.activeUser = this._userSrv.getActiveUser();
@@ -39,7 +36,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.innerHeight = window.innerHeight;
-    console.log(this.innerHeight);
+    // console.log(this.innerHeight);
     if (this.innerHeight > 600)
       this.quantity = 6;
 
@@ -81,7 +78,6 @@ export class HomeComponent implements OnInit {
 
   login() {
     this._userSrv.login("yossi@yossi.com", "123")
-      // .subscribe((data: User) => console.log(data) );
       .subscribe((data: User) => 
       {
         this.activeUser = this._userSrv.getActiveUser();
@@ -99,11 +95,9 @@ export class HomeComponent implements OnInit {
       let i: number = 0;
       if (data.hasOwnProperty("Time Series (Daily)")) {
         let obj: any = data["Time Series (Daily)"];
-        //this.NDXinfo.push(obj); //Object.keys(obj).push({key, obj[key]});
         for (let k of Object.keys(obj)) {
           let value = obj[k];
           this.NDXinfo.push({ k, value });
-          // console.log(obj[k]);
           i++;
           if (i === this.quantity)
             break;
@@ -176,9 +170,6 @@ export class HomeComponent implements OnInit {
         return 0;
       });
       this.mostActiveList = sortedArray.slice(0,5);
-    // }, function (err) {
-    //   console.log(err);
-    // })
     });
   }
 
@@ -187,7 +178,6 @@ export class HomeComponent implements OnInit {
 
     let C1: string = currArr[0];
     let C2: string = "";
-    // const source = interval(22000); //22 secomds
 
     this.currenciesArr.length = 0;
 
@@ -215,9 +205,6 @@ export class HomeComponent implements OnInit {
           console.log(data);
         }
       });
-    // });
-    // if (i=== (currArr.length-1))
-      // this.subscription.unsubscribe();
     }
   }
 }
