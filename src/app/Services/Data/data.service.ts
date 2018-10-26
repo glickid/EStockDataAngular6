@@ -11,7 +11,8 @@ import { of } from 'rxjs';
 export class DataService {
 
   static stocksArr: any[] = [];
-
+  static singletonInstance: DataService;
+  
   constructor(private http: HttpClient) { 
     if (DataService.stocksArr.length === 0) {
         this.getStockSymboles().subscribe(response => {

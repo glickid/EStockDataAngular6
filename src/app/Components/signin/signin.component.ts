@@ -28,7 +28,7 @@ export class SigninComponent implements OnInit {
     this._userSrv.login(this.signInForm.value.email, 
                         this.signInForm.value.password).subscribe(result => 
                           {
-                            console.log(result);
+                            // console.log(result);
                             this._route.navigate(['/home']);
                             $('#loginModal').modal('hide');
                             this.signInForm.reset();
