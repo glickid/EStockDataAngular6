@@ -170,6 +170,7 @@ export class PortfolioComponent implements OnInit {
 
   resetAlertModal() {
     this.alertStock = { "name": "", "symbol": "", "price": 0 };
+    this.errorMessage = "";
   }
 
   setStockAlert() {
