@@ -125,10 +125,17 @@ export class PortfolioComponent implements OnInit {
 
       if ($('#' + symbol).hasClass('show')) {
         $('#' + symbol).collapse('hide');
-        this.stockAlertInfoArr.length = 0;
+        for (let i=0; i<this.stockAlertInfoArr.length; i++)
+        {
+          if (this.stockAlertInfoArr[i].stockSymbol === symbol)
+          {
+            this.stockAlertInfoArr.splice(i,1);
+            // break;
+          }
+        }
       }
       else {
-        for (var j = 0; j < alertsArr.length; j++) {
+        for (let j = 0; j < alertsArr.length; j++) {
           this._alertsSrv.getAlertInfo(alertsArr[j].alertId)
             .subscribe((response) => {
               var alertInfo = response;
@@ -155,7 +162,8 @@ export class PortfolioComponent implements OnInit {
 
   setAlertInfo(stock) {
     this.alertStock = {
-      "name": stock.name, "symbol": stock.symbol,
+      "name": stock.name, 
+      "symbol": stock.symbol,
       "price": stock.cprice
     };
   }
@@ -165,7 +173,19 @@ export class PortfolioComponent implements OnInit {
   }
 
   removeAlert(alertId, stockSymbol) {
-    console.log(alertId, stockSymbol);
+    this._alertsSrv.removeAlert(alertId).then(response => {
+
+      this._portfolioSrv.removeAlertFromStock(alertId, stockSymbol)
+        .then(response1 => {
+          this.stockArr = <any[]>response1;
+          this.getAlertsInfo(stockSymbol);
+          for (let i=0; i<this.stockAlertInfoArr[i].length; i++) {
+            if (this.stockAlertInfoArr[i]["symbol"] === stockSymbol) {
+              $('#' + stockSymbol).collapse('hide');
+            }
+          }
+      });
+    })
   }
 
   resetAlertModal() {

@@ -145,19 +145,57 @@ export class PortfolioService {
       let reply = await this.http.put(url, activeUser).toPromise();
 
       let reply2 = await this._userSrv.updateActiveUser().toPromise();
-        
-          for (let i = 0; i < PortfolioService.stockArr.length; i++) {
-            if (PortfolioService.stockArr[i].symbol === stockSymbol) {
-              PortfolioService.stockArr[i].alertsArr.push({ "alertId": alertId });
-              return (PortfolioService.stockArr); // "symbol" : stockSymbol});
-              break;
-            }
-          }
+
+      for (let i = 0; i < PortfolioService.stockArr.length; i++) {
+        if (PortfolioService.stockArr[i].symbol === stockSymbol) {
+          PortfolioService.stockArr[i].alertsArr.push({ "alertId": alertId });
+          return (PortfolioService.stockArr); // "symbol" : stockSymbol});
+          break;
+        }
+      }
     }
     else {
       //oops, something very wrong here!
       console.log("user does not have an id!!")
       return null;
+    }
+  }
+
+  async removeAlertFromStock(alertId, symbol) {
+
+    var activeUser = this._userSrv.getActiveUser();
+
+    if (activeUser && activeUser.id) {
+      var url = "https://estockdata.herokuapp.com/users/" + activeUser.id;
+
+      for (var i = 0; i < activeUser.portfolio.length; i++) {
+        if (activeUser.portfolio[i]["symbol"] === symbol) {
+          var index = activeUser.portfolio[i].alertsArr.indexOf(alertId);
+
+          activeUser.portfolio[i].alertsArr.splice(index, 1);
+          break;
+        }
+      }
+
+      let reply = await this.http.put(url, activeUser);
+      
+      let reply2 = await this._userSrv.updateActiveUser();
+      
+      for (var i = 0; i < PortfolioService.stockArr.length; i++) {
+        if (PortfolioService.stockArr[i].symbol === symbol) {
+            for (var j = 0; j < PortfolioService.stockArr[i].alertsArr.length; j++) {
+              if (PortfolioService.stockArr[i].alertsArr[j].alertId === alertId) {
+                PortfolioService.stockArr[i].alertsArr.splice(j, 1);
+                break;
+              }
+            }
+          break;
+        }
+      }
+    }
+    else {
+    //oops, something very wrong here!
+    console.log("user does not have an id!!")
     }
   }
 }

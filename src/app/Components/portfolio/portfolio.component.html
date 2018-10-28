@@ -70,6 +70,7 @@
                     <div id="{{stock.symbol}}" class="collapse">
                         Alerts:
                         <div *ngFor="let alert of stockAlertInfoArr">
+                            <div *ngIf="stock.symbol===alert.stockSymbol">
                              <div class="text-info clearfix">
                                 <p class="d-inline-block">
                                     Type: {{alert.alertType}} Price: {{alert.price}} Triggerd:
@@ -78,6 +79,7 @@
                                 <button type="button" class="btn btn-danger float-right" (click)="removeAlert(alert.id, alert.stockSymbol)">
                                     <i class="far fa-trash-alt action-icon"></i>
                                 </button>
+                            </div>
                             </div>
                         </div> 
                     </div>
