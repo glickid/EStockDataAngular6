@@ -192,10 +192,13 @@ export class PortfolioService {
           break;
         }
       }
+
+      return PortfolioService.stockArr;
     }
     else {
     //oops, something very wrong here!
     console.log("user does not have an id!!")
+    return [];
     }
   }
 }

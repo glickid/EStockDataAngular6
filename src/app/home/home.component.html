@@ -1,167 +1,299 @@
-<div class="container home-container">
-    <div class="row">
-        <div class="col-md-3 col-sm-6 mt-1 mb-1" style="background-color: black">
-            <div class="container bg-info text-light mt-1">
-                <small>
-                    <u>Gainers</u>
-                </small>
-                <br />
-                <div class="table-responsive-sm">
-                    <table class="table small-table">
-                        <thead>
-                            <tr>
-                                <th class="th-sm">Symbol</th>
-                                <th class="th-sm">Last Price</th>
-                                <th class="th-sm">Change</th>
-                                <th class="th-sm">%Change</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let gainer of gainersList">
-                              <th class="small-table-td" scope="row">{{gainer.symbol}}</th>
-                              <td class="small-table-td">{{gainer.latestPrice|number}}</td>
-                              <td class="small-table-td">{{gainer.change}}</td>
-                              <td class="small-table-td">{{gainer.changePercent*100 | number : '1.2-2'}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="container bg-info text-light mt-1">
-                <small>
-                    <u>Losers</u>
-                </small>
-                <br />
-                <div class="table-responsive-sm">
-                    <table class="table small-table">
-                        <thead>
-                            <tr>
-                                <th class="th-sm">Symbol</th>
-                                <th class="th-sm">Last Price</th>
-                                <th class="th-sm">Change</th>
-                                <th class="th-sm">%Change</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let loser of loosersList">
-                              <th class="small-table-td" scope="row">{{loser.symbol}}</th>
-                              <td class="small-table-td">{{loser.latestPrice|number}}</td>
-                              <td class="small-table-td">{{loser.change}}</td>
-                              <td class="small-table-td">{{loser.changePercent*100 | number:'1.2-2'}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="container bg-info text-light mt-1">
-                <small>
-                    <u>Most Active</u>
-                </small>
-                <br />
-                <div class="table-responsive-sm">
-                    <table class="table small-table">
-                        <thead>
-                            <tr>
-                                <th class="th-sm">Symbol</th>
-                                <th class="th-sm">Last Price</th>
-                                <th class="th-sm">last Volume</th>
-                                <th class="th-sm">%Change</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let active of mostActiveList">
-                              <th class="small-table-td" scope="row">{{active.symbol}}</th>
-                              <td class="small-table-td">{{active.latestPrice|number}}</td>
-                              <td class="small-table-td">{{active.latestVolume|number}}</td>
-                              <td class="small-table-td">{{active.changePercent*100 | number:'1.2-2'}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <!-- <small [hidden]="mostActiveList.length!=0">No Info out of trading hours.</small> -->
-            </div>
-            <div class="container bg-info text-light mt-2 mb-2">
-                <small>
-                    <u>Major Currencies (value in USD)</u>
-                </small>
-                <br />
-                <div *ngFor="let currency of currenciesArr">
-                    <small class="text-dark mt-2">{{currency.name}}:
-                        <span class="float-right">{{currency.value | number:'1.3-3'}}</span>
-                    </small>
-                </div>
-            </div>
+<div id="site-content">
+    <header class="site-header text-center">
+        <div class="container">
+
+            <a href="index.html" id="branding">
+                <img src="../../assets/1477521928_10_icon-icons.com_74620.png" class="svg-icon">
+                <h1 class="site-title">EStockData</h1>
+                <small class="site-slogan">Your Portfolio is Our Business</small>
+            </a> <!-- End of #branding -->
+
+            <nav class="main-navigation">
+                <button type="button" class="menu-toggle"><i class="fa fa-bars"></i> Menu</button>
+                <ul>
+                    <li><a href="homepage.html">Home</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
         </div>
-        <div class="col-md-6 col-sm-6">
-            <div class="jumbotron jumbotron-fluid mt-5" *ngIf="!isUserLoggedIn()">
-            <!-- <div class="jumbotron jumbotron-fluid mt-5"> -->
-                <div id="main-container" class="container">
-                    <img id="main-icon" class="d-inline-block" src="/src/assets/1477521928_10_icon-icons.com_74620.png" alt=""
-                        width="50px">
-                    <h1 class="d-inline-block display-4">EStockData</h1>
-                    <p class="lead">Welcome to the EStockData website</p>
-                    <hr class="my-2">
-                    <p>As a registered user you would be able to:
-                        <ul id="features-list">
-                            <li>Manage a virtaul stock-portfolio</li>
-                            <li>Set Alerts for stocks</li>
-                            <li>See detailed stock-charts</li>
-                            <li>See crypto currencies</li>
-                        </ul>
-                        <div class="lead mt-2 float-right">
-                            <a id="signin-btn" class="btn btn-primary btn-lg" role="button" routerLink="signup">Register
-                                Now!</a>
-                            <a id="login-btn" class="btn btn-primary btn-lg" href="javascript:void(0)" role="button" data-toggle="modal"
-                                data-target="#loginModal">Login</a>
+    </header> <!-- End of .site-header -->
+
+    <div class="content">
+
+        <div class="hero fullwidth-block text-center primary-color">
+            <div class="container">
+                <h2 class="text-light wow fadeInUp">Welcome to EStockData website<br>
+                    <strong>Your Stock Portfolio Mangement site</strong>
+                </h2>
+            </div>
+        </div> <!-- End of .hero -->
+
+        <div class="fullwidth-block primary-color">
+            <div class="container">
+                <div class="row">
+                    <h2 class="mb-5">As a registered user you would be able to</h2>
+                </div>
+                <div class="row features text-center">
+                    <div class="col-sm-3">
+                        <div class="feature wow fadeInUp">
+                            <img src="../../assets/lineo-icon-svgs/icon-29.svg" class="svg-icon">
+                            <h3 class="feature-title">Manage a virtaul stock-portfolio</h3>
+                            <div class="feature-desc">
+                                <p>Create your own stock-portfolio which shows current price and up-to-date yield.</p>
+                            </div>
+                        </div> <!-- End of feature -->
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="feature wow fadeInUp" data-wow-delay=".3s">
+                            <img src="../../assets/lineo-icon-svgs/icon-30.svg" class="svg-icon">
+                            <h3 class="feature-title">Set Alerts for stocks</h3>
+                            <div class="feature-desc">
+                                <p>Easily set alerts for Stop-Loss or Take-Profit on each stock in your portfolio.</p>
+                            </div>
+                        </div> <!-- End of feature -->
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="feature wow fadeInUp" data-wow-delay=".5s">
+                            <img src="../../assets/lineo-icon-svgs/icon-8.svg" class="svg-icon">
+                            <h3 class="feature-title">See detailed stock-charts</h3>
+                            <div class="feature-desc">
+                                <p>Easy serach a stock and view detailed charts to find your next stock successful
+                                    investment.</p>
+                            </div>
+                        </div> <!-- End of feature -->
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="feature wow fadeInUp" data-wow-delay=".5s">
+                            <img src="../../assets/lineo-icon-svgs/icon-3.svg" class="svg-icon">
+                            <h3 class="feature-title">See Crypto currencies</h3>
+                            <div class="feature-desc">
+                                <p>One-click page to see your favorite Crypto currencies charts, current and historic
+                                    rates.</p>
+                            </div>
+                        </div> <!-- End of feature -->
+                    </div>
+                </div> <!-- End of .features row -->
+            </div> <!-- End of .container -->
+        </div> <!-- End of .fullwidth-block -->
+
+        <!-- <div class="fullwidth-block secondary-color"> -->
+        <div class="fullwidth-block bg-white text-dark clearfix">
+            <div class="container">
+                <div class="quote-slider">
+                    <ul class="slides clearfix">
+                        <li>
+                            <div class="float-left mr-5">
+                                <div>
+                                    <!-- <small> -->
+                                    <h4 class="font-weight-bold mb-0">Gainers</h4>
+                                    <!-- </small> -->
+                                </div>
+                                <!-- <br /> -->
+                                <div class="wwww">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th class="th">Symbol</th>
+                                                <th class="th">Last Price</th>
+                                                <th class="th">Change</th>
+                                                <th class="th">%Change</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let gainer of gainersList">
+                                                <th class="dd" scope="row">{{gainer.symbol}}</th>
+                                                <td class="dd">{{gainer.latestPrice|number}}</td>
+                                                <td class="dd">{{gainer.change}}</td>
+                                                <td class="dd">{{gainer.changePercent*100 | number : '1.2-2'}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- </li> -->
+                            </div>
+                            <!-- <li> -->
+                            <div class="float-left mr-5">
+                                <!-- <small> -->
+                                <h4 class="font-weight-bold mb-0">Loosers</h4>
+                                <!-- </small> -->
+                                <!-- <br /> -->
+                                <div class="wwww">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th class="th">Symbol</th>
+                                                <th class="th">Last Price</th>
+                                                <th class="th">Change</th>
+                                                <th class="th">%Change</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let loser of loosersList">
+                                                <th class="dd" scope="row">{{loser.symbol}}</th>
+                                                <td class="dd">{{loser.latestPrice|number}}</td>
+                                                <td class="dd">{{loser.change}}</td>
+                                                <td class="dd">{{loser.changePercent*100 | number:'1.2-2'}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- </li> -->
+                            <!-- <li> -->
+                            <div class="float-left">
+                                <!-- <small> -->
+                                <h4 class="font-weight-bold mb-0">Active</h4>
+                                <!-- </small> -->
+                                <!-- <br /> -->
+                                <div class="wwww">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th class="th">Symbol</th>
+                                                <th class="th">Last Price</th>
+                                                <th class="th">Change</th>
+                                                <th class="th">%Change</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                            <tr *ngFor="let active of mostActiveList">
+                                                <th class="dd" scope="row">{{active.symbol}}</th>
+                                                <td class="dd">{{active.latestPrice|number}}</td>
+                                                <td class="dd">{{active.latestVolume|number}}</td>
+                                                <td class="dd">{{active.changePercent*100 | number:'1.2-2'}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <h4 class="font-weight-bold mb-0">Nasdaq 100 Index</h4>
+                                        <div class="">
+                                            <label for="QDays">Last days to show:</label>
+                                            <input type="number" name="QDays" id="QDays" [(ngModel)]="quantity"
+                                                (ngModelChange)="updateNdxLength($event)">
+                                        </div>
+                                        <div *ngFor="let item of NDXinfo">
+                                            <ng-container class="text-dark" *ngIf="quantity">
+                                                <small>
+                                                    <u>{{item.k}}</u>
+                                                </small>
+                                                <div *ngFor="let item2 of item['value'] | keyvalue">
+                                                    <small>{{item2.key}}:
+                                                        <span class="float-right">{{item2.value | number:'1.2-2'}}</span>
+                                                    </small>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                            <div class="mt-2 mb-2">
+                                                    <h4 class="font-weight-bold mb-0">Major Currencies (value in USD)</h4>
+                                                    <!-- <hr /> -->
+                                                    <div *ngFor="let currency of currenciesArr">
+                                                        <small class="text-dark mt-2">{{currency.name}}:
+                                                            <span class="float-right">{{currency.value | number:'1.3-3'}}</span>
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul> <!-- End of .slides -->
+                </div> <!-- End of quote-slider -->
+            </div> <!-- End of .container -->
+        </div> <!-- End of .fullwidth-block -->
+
+    </div> <!-- End of .content -->
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row widget-area">
+
+                <div class="col-md-6">
+
+                    <div class="row">
+
+                        <div class="col-xs-6 col-us">
+                            <div class="widget">
+                                <h3 class="widget-title">Contact</h3>
+                                <p>Company Name INC. <br>534 Avenue Street. New York</p>
+                                <p>office@companyname.com <br>(423) 9846 34487</p>
+                            </div>
                         </div>
-                </div>
-            </div>
-            <div *ngIf="isUserLoggedIn()" class="container bg-light mt-5">
-            <!-- <div class="container bg-light mt-5"> -->
-                <h1 class="display-5">Welcome {{activeUser.fname}}</h1>
-                <!-- <h1 class="display-5">Welcome </h1> -->
-                <div class="lead mt-2">
-                    <a class="btn btn-primary btn-lg action-btn" routerLink="/portfolio" role="button">
-                        Manage my virtaul stock-portfolio</a>
-                </div>
-                <div class="lead mt-2">
-                    <a class="btn btn-primary btn-lg action-btn" routerLink="/charts" role="button" (click)="seeCharts()">
-                        See detailed stock-charts</a>
-                </div>
-                <div class="lead mt-2 pb-4">
-                    <a class="btn btn-primary btn-lg action-btn" routerLink="/crypto" role="button" (click)="seeCryptoCurrencies()">
-                        See crypto currencies</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-12 mt-1 mb-1" style="background-color: black">
-            <div class="container bg-info text-light mt-1">
-                <h3>
-                    <u>Nasdaq 100 Index</u>
-                </h3>
-                <div class="">
-                    <label for="QDays">Last days to show:</label>
-                    <input type="number" name="QDays" id="QDays" [(ngModel)]="quantity" (ngModelChange)="updateNdxLength($event)">
-                </div>
-                <div *ngFor="let item of NDXinfo">
-                     <!-- let-i="index"> -->
-                    <!-- <div *ngFor="let item of NDXinfo | keyvalue"> -->
-                     <!-- let-i="index"> -->
-                    <!-- | objLimitTo:quantity"> -->
-                    <ng-container class="text-dark" *ngIf="quantity">
-                        <small>
-                            <u>{{item.k}}</u>
-                        </small>
-                        <div *ngFor="let item2 of item['value'] | keyvalue">
-                            <!-- ng-class="{'mb-3':$last}" -->
-                            <small>{{item2.key}}:
-                                <span class="float-right">{{item2.value | number:'1.2-2'}}</span>
-                            </small>
+
+                        <div class="col-xs-6 col-us">
+                            <div class="widget">
+                                <h3 class="widget-title">Popular Question</h3>
+                                <ul>
+                                    <li>Lorem ipsum dolor sit amet</li>
+                                    <li>consectetur adipisicing elit</li>
+                                    <li>Minus dolores dolorem rem velit</li>
+                                    <li>deserunt repellat saepe id</li>
+                                </ul>
+                            </div>
                         </div>
-                    </ng-container>
+
+                    </div>
+
                 </div>
-                <!-- </div> -->
-            </div>
+
+                <div class="col-md-6">
+
+                    <div class="row">
+
+                        <div class="col-xs-6 col-us">
+                            <div class="widget">
+                                <h3 class="widget-title">Social Media</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos veritatis non
+                                    inventore</p>
+
+                                <div class="social-links">
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                                    <a href="#"><i class="fa fa-pinterest"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-6 col-us">
+                            <div class="widget newsletter-widget">
+                                <h3 class="widget-title">Newsletter</h3>
+                                <form action="#">
+                                    <input type="email" name="email" placeholder="Your email address">
+                                    <input type="submit" class="button alignright" value="Subscribe">
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div> <!-- End of .widget-area -->
+
+            <div class="row colophon text-center">
+                <p>copyright 2014 Company Name. Designed by Themezy. All rights reserved</p>
+            </div> <!-- End of .colophon -->
         </div>
-    </div>
-</div>
+    </footer> <!-- End of .site-footer -->
+
+</div> <!-- End of #site-content -->
+
+<!-- <script src="./plugins/plugins.js"></script> -->
+<!-- <script src="js/app.js"></script> -->

@@ -1,0 +1,167 @@
+<div class="container home-container">
+    <div class="row">
+        <div class="col-md-3 col-sm-6 mt-1 mb-1" style="background-color: black">
+            <div class="container bg-info text-light mt-1">
+                <small>
+                    <u>Gainers</u>
+                </small>
+                <br />
+                <div class="table-responsive-sm">
+                    <table class="table small-table">
+                        <thead>
+                            <tr>
+                                <th class="th-sm">Symbol</th>
+                                <th class="th-sm">Last Price</th>
+                                <th class="th-sm">Change</th>
+                                <th class="th-sm">%Change</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let gainer of gainersList">
+                              <th class="small-table-td" scope="row">{{gainer.symbol}}</th>
+                              <td class="small-table-td">{{gainer.latestPrice|number}}</td>
+                              <td class="small-table-td">{{gainer.change}}</td>
+                              <td class="small-table-td">{{gainer.changePercent*100 | number : '1.2-2'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="container bg-info text-light mt-1">
+                <small>
+                    <u>Losers</u>
+                </small>
+                <br />
+                <div class="table-responsive-sm">
+                    <table class="table small-table">
+                        <thead>
+                            <tr>
+                                <th class="th-sm">Symbol</th>
+                                <th class="th-sm">Last Price</th>
+                                <th class="th-sm">Change</th>
+                                <th class="th-sm">%Change</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let loser of loosersList">
+                              <th class="small-table-td" scope="row">{{loser.symbol}}</th>
+                              <td class="small-table-td">{{loser.latestPrice|number}}</td>
+                              <td class="small-table-td">{{loser.change}}</td>
+                              <td class="small-table-td">{{loser.changePercent*100 | number:'1.2-2'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="container bg-info text-light mt-1">
+                <small>
+                    <u>Most Active</u>
+                </small>
+                <br />
+                <div class="table-responsive-sm">
+                    <table class="table small-table">
+                        <thead>
+                            <tr>
+                                <th class="th-sm">Symbol</th>
+                                <th class="th-sm">Last Price</th>
+                                <th class="th-sm">last Volume</th>
+                                <th class="th-sm">%Change</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let active of mostActiveList">
+                              <th class="small-table-td" scope="row">{{active.symbol}}</th>
+                              <td class="small-table-td">{{active.latestPrice|number}}</td>
+                              <td class="small-table-td">{{active.latestVolume|number}}</td>
+                              <td class="small-table-td">{{active.changePercent*100 | number:'1.2-2'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- <small [hidden]="mostActiveList.length!=0">No Info out of trading hours.</small> -->
+            </div>
+            <div class="container bg-info text-light mt-2 mb-2">
+                <small>
+                    <u>Major Currencies (value in USD)</u>
+                </small>
+                <br />
+                <div *ngFor="let currency of currenciesArr">
+                    <small class="text-dark mt-2">{{currency.name}}:
+                        <span class="float-right">{{currency.value | number:'1.3-3'}}</span>
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+            <div class="jumbotron jumbotron-fluid mt-5" *ngIf="!isUserLoggedIn()">
+            <!-- <div class="jumbotron jumbotron-fluid mt-5"> -->
+                <div id="main-container" class="container">
+                    <img id="main-icon" class="d-inline-block" src="/src/assets/1477521928_10_icon-icons.com_74620.png" alt=""
+                        width="50px">
+                    <h1 class="d-inline-block display-4">EStockData</h1>
+                    <p class="lead">Welcome to the EStockData website</p>
+                    <hr class="my-2">
+                    <p>As a registered user you would be able to:
+                        <ul id="features-list">
+                            <li>Manage a virtaul stock-portfolio</li>
+                            <li>Set Alerts for stocks</li>
+                            <li>See detailed stock-charts</li>
+                            <li>See crypto currencies</li>
+                        </ul>
+                        <div class="lead mt-2 float-right">
+                            <a id="signin-btn" class="btn btn-primary btn-lg" role="button" routerLink="signup">Register
+                                Now!</a>
+                            <a id="login-btn" class="btn btn-primary btn-lg" href="javascript:void(0)" role="button" data-toggle="modal"
+                                data-target="#loginModal">Login</a>
+                        </div>
+                </div>
+            </div>
+            <div *ngIf="isUserLoggedIn()" class="container bg-light mt-5">
+            <!-- <div class="container bg-light mt-5"> -->
+                <h1 class="display-5">Welcome {{activeUser.fname}}</h1>
+                <!-- <h1 class="display-5">Welcome </h1> -->
+                <div class="lead mt-2">
+                    <a class="btn btn-primary btn-lg action-btn" routerLink="/portfolio" role="button">
+                        Manage my virtaul stock-portfolio</a>
+                </div>
+                <div class="lead mt-2">
+                    <a class="btn btn-primary btn-lg action-btn" routerLink="/charts" role="button" (click)="seeCharts()">
+                        See detailed stock-charts</a>
+                </div>
+                <div class="lead mt-2 pb-4">
+                    <a class="btn btn-primary btn-lg action-btn" routerLink="/crypto" role="button" (click)="seeCryptoCurrencies()">
+                        See crypto currencies</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-12 mt-1 mb-1" style="background-color: black">
+            <div class="container bg-info text-light mt-1">
+                <h3>
+                    <u>Nasdaq 100 Index</u>
+                </h3>
+                <div class="">
+                    <label for="QDays">Last days to show:</label>
+                    <input type="number" name="QDays" id="QDays" [(ngModel)]="quantity" (ngModelChange)="updateNdxLength($event)">
+                </div>
+                <div *ngFor="let item of NDXinfo">
+                     <!-- let-i="index"> -->
+                    <!-- <div *ngFor="let item of NDXinfo | keyvalue"> -->
+                     <!-- let-i="index"> -->
+                    <!-- | objLimitTo:quantity"> -->
+                    <ng-container class="text-dark" *ngIf="quantity">
+                        <small>
+                            <u>{{item.k}}</u>
+                        </small>
+                        <div *ngFor="let item2 of item['value'] | keyvalue">
+                            <!-- ng-class="{'mb-3':$last}" -->
+                            <small>{{item2.key}}:
+                                <span class="float-right">{{item2.value | number:'1.2-2'}}</span>
+                            </small>
+                        </div>
+                    </ng-container>
+                </div>
+                <!-- </div> -->
+            </div>
+        </div>
+    </div>
+</div>

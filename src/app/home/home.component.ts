@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HostListener } from '@angular/core';
 import { Observable } from 'rxjs';
+// import { flexslider } from 'angular-flexslider';
+import { NgwWowService } from 'ngx-wow';
 
 import { DataService } from '../Services/Data/data.service';
 import { interval, Subscription } from 'rxjs';
@@ -30,7 +32,8 @@ export class HomeComponent implements OnInit {
   activeUser : User;
   
   constructor(private _dataService: DataService,
-              private _userSrv: UserService ) { 
+              private _userSrv: UserService,
+              private _wowService: NgwWowService ) { 
                 this.activeUser = this._userSrv.getActiveUser();
               }
 
@@ -47,6 +50,31 @@ export class HomeComponent implements OnInit {
     this.getMostActive();
     this.getCurrencyValues();
     this.activeUser = this._userSrv.getActiveUser();
+
+    // this._flexslider.controller()
+    // $(".quote-slider").flexslider({
+		// 	directionNav: false
+		// });
+
+		// Menu Toggle
+		$(".menu-toggle").click(function(){
+			$(this).toggleClass("active");
+			$(".main-navigation ul").toggleClass("active");
+		});
+
+		//  Replacing SVG icon with image
+		// if (!Modernizr.svg) {
+		// 	$(".svg-icon").each(function(){
+		// 		var iconNum = $(this).find("use").attr("xlink:href");
+		// 		var icon = iconNum.replace("#","");
+
+		// 		$(this).replaceWith("<img src=images/lineo-icon-pngs/"+icon+".png class=icon >");
+		// 	});
+		  
+    // }
+    
+		// WOW initiation
+    this._wowService.init();
   }
   // ngOnDestroy() {
   //   this.subscription.unsubscribe();
