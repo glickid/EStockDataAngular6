@@ -73,7 +73,8 @@
                     </div>
                     <div class="col-sm-3">
                         <div class="feature wow fadeInUp" data-wow-delay=".5s">
-                            <a class="main-link" href="javascript:void(0)" (click)='changeRoute("/charts/AAPL/1m")' *ngIf="isUserLoggedIn()">
+                            <a class="main-link" href="javascript:void(0)" (click)='changeRoute("/charts/AAPL/1m")'
+                                *ngIf="isUserLoggedIn()">
                                 <img src="../../assets/lineo-icon-svgs/icon-8.svg" class="svg-icon">
                                 <h3 class="feature-title">See detailed stock-charts</h3>
                                 <div class="feature-desc">
@@ -93,7 +94,8 @@
                     </div>
                     <div class="col-sm-3">
                         <div class="feature wow fadeInUp" data-wow-delay=".5s">
-                            <a class="main-link" href="javascript:void(0)" (click)='changeRoute("/cryptoCurrency")' *ngIf="isUserLoggedIn()">
+                            <a class="main-link" href="javascript:void(0)" (click)='changeRoute("/cryptoCurrency")'
+                                *ngIf="isUserLoggedIn()">
                                 <img src="../../assets/lineo-icon-svgs/icon-3.svg" class="svg-icon">
                                 <h3 class="feature-title">See Crypto currencies</h3>
                                 <div class="feature-desc">
@@ -122,78 +124,86 @@
                 <div class="quote-slider">
                     <ul class="slides clearfix">
                         <li>
-                            <div class="float-left px-3 bg-success">
-                                <div>
-                                    <h4 class="font-weight-bold mb-0">Gainers</h4>
-                                </div>
-                                <div class="wwww">
-                                    <table class="data-table">
-                                        <thead>
-                                            <tr>
-                                                <th class="th">Symbol</th>
-                                                <th class="th">Last Price</th>
-                                                <th class="th">Change</th>
-                                                <th class="th">%Change</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr *ngFor="let gainer of gainersList">
-                                                <th class="dd" scope="row">{{gainer.symbol}}</th>
-                                                <td class="dd">{{gainer.latestPrice|number}}</td>
-                                                <td class="dd">{{gainer.change}}</td>
-                                                <td class="dd">{{gainer.changePercent*100 | number : '1.2-2'}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="float-left px-2 bg-danger">
-                                <!-- <small> -->
-                                <h4 class="font-weight-bold mb-0">Loosers</h4>
-                                <div class="wwww">
-                                    <table class="data-table">
-                                        <thead>
-                                            <tr>
-                                                <th class="th">Symbol</th>
-                                                <th class="th">Last Price</th>
-                                                <th class="th">Change</th>
-                                                <th class="th">%Change</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr *ngFor="let loser of loosersList">
-                                                <th class="dd" scope="row">{{loser.symbol}}</th>
-                                                <td class="dd">{{loser.latestPrice|number}}</td>
-                                                <td class="dd">{{loser.change}}</td>
-                                                <td class="dd">{{loser.changePercent*100 | number:'1.2-2'}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="float-left px-3 bg-primary">
-                                <h4 class="font-weight-bold mb-0">Active</h4>
-                                <div class="dd">
-                                    <table class="data-table">
-                                        <thead>
-                                            <tr>
-                                                <th class="th">Symbol</th>
-                                                <th class="th">Last Price</th>
-                                                <th class="th">Change</th>
-                                                <th class="th">%Change</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                            <tr *ngFor="let active of mostActiveList">
-                                                <th class="dd" scope="row">{{active.symbol}}</th>
-                                                <td class="dd">{{active.latestPrice|number}}</td>
-                                                <td class="dd">{{active.latestVolume|number}}</td>
-                                                <td class="dd">{{active.changePercent*100 | number:'1.2-2'}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <small [hidden]="mostActiveList.length>0">No Info out of trading hours.</small>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="card px-2 py-2">
+                                            <div class="card-block">
+                                                <h4 class="card-title font-weight-bold mb-0 text-center badge-success">Gainers</h4>
+                                                <table class="data-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="th">Symbol</th>
+                                                            <th class="th">Last Price</th>
+                                                            <th class="th">Change</th>
+                                                            <th class="th">%Change</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let gainer of gainersList">
+                                                            <th class="dd" scope="row">{{gainer.symbol}}</th>
+                                                            <td class="dd">{{gainer.latestPrice|number}}</td>
+                                                            <td class="dd">{{gainer.change}}</td>
+                                                            <td class="dd">{{gainer.changePercent*100 | number :
+                                                                '1.2-2'}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="card px-2 py-2">
+                                            <div class="card-block">
+                                                <h4 class="card-title font-weight-bold mb-0 text-center badge-danger">Loosers</h4>
+                                                <table class="data-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="th">Symbol</th>
+                                                            <th class="th">Last Price</th>
+                                                            <th class="th">Change</th>
+                                                            <th class="th">%Change</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let loser of loosersList">
+                                                            <th class="dd" scope="row">{{loser.symbol}}</th>
+                                                            <td class="dd">{{loser.latestPrice|number}}</td>
+                                                            <td class="dd">{{loser.change}}</td>
+                                                            <td class="dd">{{loser.changePercent*100 | number:'1.2-2'}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="card px-2 py-2">
+                                            <div class="card-block">
+                                                <h4 class="card-title font-weight-bold mb-0 text-center badge-primary">Active</h4>
+                                                <table class="data-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="th-sm">Symbol</th>
+                                                            <th class="th-sm">Last Price</th>
+                                                            <th class="th-sm">Volume</th>
+                                                            <th class="th-sm">%Change</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let active of mostActiveList">
+                                                            <th class="dd" scope="row">{{active.symbol}}</th>
+                                                            <td class="dd">{{active.latestPrice|number}}</td>
+                                                            <td class="dd">{{active.latestVolume|number}}</td>
+                                                            <td class="dd">{{active.changePercent*100 |
+                                                                number:'1.2-2'}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <small [hidden]="mostActiveList.length>0">No Info out of trading hours.</small>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </li>

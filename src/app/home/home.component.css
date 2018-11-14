@@ -24,6 +24,9 @@
     text-decoration: none;
  }
 
+ .card {
+	box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+ }
  /* @import url(fonts/font-awesome.min.css); */
  /*=========================================== 
   * Importing CSS Libraries
