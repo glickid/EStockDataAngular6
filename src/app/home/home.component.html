@@ -8,7 +8,7 @@
                 <small class="site-slogan">Your Portfolio is Our Business</small>
             </a> <!-- End of #branding -->
 
-            <nav class="main-navigation">
+            <!-- <nav class="main-navigation">
                 <button type="button" class="menu-toggle"><i class="fa fa-bars"></i> Menu</button>
                 <ul>
                     <li><a href="homepage.html">Home</a></li>
@@ -16,7 +16,7 @@
                     <li><a href="services.html">Services</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
-            </nav>
+            </nav> -->
         </div>
     </header> <!-- End of .site-header -->
 
@@ -86,11 +86,8 @@
                         <li>
                             <div class="float-left mr-5">
                                 <div>
-                                    <!-- <small> -->
                                     <h4 class="font-weight-bold mb-0">Gainers</h4>
-                                    <!-- </small> -->
                                 </div>
-                                <!-- <br /> -->
                                 <div class="wwww">
                                     <table class="data-table">
                                         <thead>
@@ -111,14 +108,9 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <!-- </li> -->
                             </div>
-                            <!-- <li> -->
-                            <div class="float-left mr-5">
-                                <!-- <small> -->
+                            <div class="float-left mr-5">                                <!-- <small> -->
                                 <h4 class="font-weight-bold mb-0">Loosers</h4>
-                                <!-- </small> -->
-                                <!-- <br /> -->
                                 <div class="wwww">
                                     <table class="data-table">
                                         <thead>
@@ -140,13 +132,8 @@
                                     </table>
                                 </div>
                             </div>
-                            <!-- </li> -->
-                            <!-- <li> -->
                             <div class="float-left">
-                                <!-- <small> -->
                                 <h4 class="font-weight-bold mb-0">Active</h4>
-                                <!-- </small> -->
-                                <!-- <br /> -->
                                 <div class="wwww">
                                     <table class="data-table">
                                         <thead>
@@ -200,15 +187,14 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-sm-4">
-                                            <div class="mt-2 mb-2">
-                                                    <h4 class="font-weight-bold mb-0">Major Currencies (value in USD)</h4>
-                                                    <!-- <hr /> -->
-                                                    <div *ngFor="let currency of currenciesArr">
-                                                        <small class="text-dark mt-2">{{currency.name}}:
-                                                            <span class="float-right">{{currency.value | number:'1.3-3'}}</span>
-                                                        </small>
-                                                    </div>
-                                                </div>
+                                        <div class="mt-2 mb-2">
+                                            <h4 class="font-weight-bold mb-0">Major Currencies (value in USD)</h4>
+                                            <div *ngFor="let currency of currenciesArr">
+                                                <small class="text-dark mt-2">{{currency.name}}:
+                                                    <span class="float-right">{{currency.value | number:'1.3-3'}}</span>
+                                                </small>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

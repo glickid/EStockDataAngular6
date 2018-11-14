@@ -12,8 +12,8 @@ const appRoutes : Routes = [
   { path: 'signup', component: SignupComponent},
   { path: 'home' , component: HomeComponent},
   { path: 'portfolio', component: PortfolioComponent},
-  { path: 'charts', component: StockChartsComponent},
-  { path: 'crypto', component: CryptoCurrenciesComponent},
+  { path: 'charts/:symbol/:period', component: StockChartsComponent},
+  { path: 'cryptoCurrency', component: CryptoCurrenciesComponent},
   { path: '', redirectTo: "/home", pathMatch:'full'}
 ];
 
