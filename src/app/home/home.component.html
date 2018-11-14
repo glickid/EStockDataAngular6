@@ -134,7 +134,7 @@
                             </div>
                             <div class="float-left">
                                 <h4 class="font-weight-bold mb-0">Active</h4>
-                                <div class="wwww">
+                                <div class="dd">
                                     <table class="data-table">
                                         <thead>
                                             <tr>
@@ -154,6 +154,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <small [hidden]="mostActiveList.length>0">No Info out of trading hours.</small>
                                 </div>
                             </div>
                         </li>
@@ -208,7 +209,7 @@
 
     <footer class="site-footer">
         <div class="container">
-            <div class="row widget-area">
+         <!--   <div class="row widget-area">
 
                 <div class="col-md-6">
 
@@ -271,13 +272,15 @@
 
                 </div>
 
-            </div> <!-- End of .widget-area -->
+            </div>  -->
 
             <div class="row colophon text-center">
-                <p>copyright 2014 Company Name. Designed by Themezy. All rights reserved</p>
-            </div> <!-- End of .colophon -->
+                <p class="fixed-bottom bg-dark text-white text-center pt-2 pb-2">EStockData by
+                     <span class="text-primary">Yossi Glick</span>
+                </p>
+            </div> 
         </div>
-    </footer> <!-- End of .site-footer -->
+    </footer> 
 
 </div> <!-- End of #site-content -->
 

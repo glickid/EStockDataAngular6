@@ -11,7 +11,6 @@ import { User } from '../Services/User/user';
 
 
 @Component({
-  // providers:[UserComponent ],
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
@@ -39,7 +38,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.innerHeight = window.innerHeight;
-    // console.log(this.innerHeight);
+
     if (this.innerHeight > 600)
       this.quantity = 6;
 
@@ -230,7 +229,7 @@ export class HomeComponent implements OnInit {
         }
         else {
           console.log("failed to parse Currency response ");
-          console.log(data);
+          // console.log(data);
         }
       });
     }
