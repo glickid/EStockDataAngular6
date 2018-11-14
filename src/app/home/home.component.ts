@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HostListener } from '@angular/core';
-import { Observable } from 'rxjs';
+// import { Observable } from 'rxjs';
+import { Router} from '@angular/router';
+
 // import { flexslider } from 'angular-flexslider';
 import { NgwWowService } from 'ngx-wow';
 
@@ -9,11 +11,10 @@ import { interval, Subscription } from 'rxjs';
 import { UserService } from '../Services/User/user.service'
 import { User } from '../Services/User/user';
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 
 @HostListener('window:resize', ['$event'])
@@ -32,8 +33,9 @@ export class HomeComponent implements OnInit {
   
   constructor(private _dataService: DataService,
               private _userSrv: UserService,
-              private _wowService: NgwWowService ) { 
-                this.activeUser = this._userSrv.getActiveUser();
+              private _wowService: NgwWowService,
+              private _router: Router ) { 
+                this.activeUser = this._userSrv.getActiveUser();                
               }
 
   ngOnInit() {
@@ -233,5 +235,9 @@ export class HomeComponent implements OnInit {
         }
       });
     }
+  }
+
+  changeRoute( route:string) {
+    this._router.navigate([route]);
   }
 }

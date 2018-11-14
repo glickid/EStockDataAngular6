@@ -21,7 +21,6 @@
     </header> <!-- End of .site-header -->
 
     <div class="content">
-
         <div class="hero fullwidth-block text-center primary-color">
             <div class="container">
                 <h2 class="text-light wow fadeInUp">Welcome to EStockData website<br>
@@ -38,39 +37,78 @@
                 <div class="row features text-center">
                     <div class="col-sm-3">
                         <div class="feature wow fadeInUp">
-                            <img src="../../assets/lineo-icon-svgs/icon-29.svg" class="svg-icon">
-                            <h3 class="feature-title">Manage a virtaul stock-portfolio</h3>
-                            <div class="feature-desc">
-                                <p>Create your own stock-portfolio which shows current price and up-to-date yield.</p>
+                            <a class="main-link" href="javascript:void(0)" (click)='changeRoute("/portfolio")' *ngIf="isUserLoggedIn()">
+                                <img src="../../assets/lineo-icon-svgs/icon-29.svg" class="svg-icon">
+                                <h3 class="feature-title">Manage a virtual stock-portfolio</h3>
+                                <div class="feature-desc">
+                                    <p>Create your own stock-portfolio which shows current price and up-to-date yield.</p>
+                                </div>
+                            </a>
+                            <div *ngIf="!isUserLoggedIn()">
+                                <img src="../../assets/lineo-icon-svgs/icon-29.svg" class="svg-icon">
+                                <h3 class="feature-title">Manage a virtual stock-portfolio</h3>
+                                <div class="feature-desc">
+                                    <p>Create your own stock-portfolio which shows current price and up-to-date yield.</p>
+                                </div>
                             </div>
                         </div> <!-- End of feature -->
                     </div>
                     <div class="col-sm-3">
                         <div class="feature wow fadeInUp" data-wow-delay=".3s">
-                            <img src="../../assets/lineo-icon-svgs/icon-30.svg" class="svg-icon">
-                            <h3 class="feature-title">Set Alerts for stocks</h3>
-                            <div class="feature-desc">
-                                <p>Easily set alerts for Stop-Loss or Take-Profit on each stock in your portfolio.</p>
+                            <a class="main-link" href="javascript:void(0)" (click)='changeRoute("/portfolio")' *ngIf="isUserLoggedIn()">
+                                <img src="../../assets/lineo-icon-svgs/icon-30.svg" class="svg-icon">
+                                <h3 class="feature-title">Set Alerts for stocks</h3>
+                                <div class="feature-desc">
+                                    <p>Easily set alerts for Stop-Loss or Take-Profit on each stock in your portfolio.</p>
+                                </div>
+                            </a>
+                            <div *ngIf="!isUserLoggedIn()">
+                                <img src="../../assets/lineo-icon-svgs/icon-30.svg" class="svg-icon">
+                                <h3 class="feature-title">Set Alerts for stocks</h3>
+                                <div class="feature-desc">
+                                    <p>Easily set alerts for Stop-Loss or Take-Profit on each stock in your portfolio.</p>
+                                </div>
                             </div>
                         </div> <!-- End of feature -->
                     </div>
                     <div class="col-sm-3">
                         <div class="feature wow fadeInUp" data-wow-delay=".5s">
-                            <img src="../../assets/lineo-icon-svgs/icon-8.svg" class="svg-icon">
-                            <h3 class="feature-title">See detailed stock-charts</h3>
-                            <div class="feature-desc">
-                                <p>Easy serach a stock and view detailed charts to find your next stock successful
-                                    investment.</p>
+                            <a class="main-link" href="javascript:void(0)" (click)='changeRoute("/charts/AAPL/1m")' *ngIf="isUserLoggedIn()">
+                                <img src="../../assets/lineo-icon-svgs/icon-8.svg" class="svg-icon">
+                                <h3 class="feature-title">See detailed stock-charts</h3>
+                                <div class="feature-desc">
+                                    <p>Easy serach a stock and view detailed charts to find your next stock successful
+                                        investment.</p>
+                                </div>
+                            </a>
+                            <div *ngIf="!isUserLoggedIn()">
+                                <img src="../../assets/lineo-icon-svgs/icon-8.svg" class="svg-icon">
+                                <h3 class="feature-title">See detailed stock-charts</h3>
+                                <div class="feature-desc">
+                                    <p>Easy serach a stock and view detailed charts to find your next stock successful
+                                        investment.</p>
+                                </div>
                             </div>
                         </div> <!-- End of feature -->
                     </div>
                     <div class="col-sm-3">
                         <div class="feature wow fadeInUp" data-wow-delay=".5s">
-                            <img src="../../assets/lineo-icon-svgs/icon-3.svg" class="svg-icon">
-                            <h3 class="feature-title">See Crypto currencies</h3>
-                            <div class="feature-desc">
-                                <p>One-click page to see your favorite Crypto currencies charts, current and historic
-                                    rates.</p>
+                            <a class="main-link" href="javascript:void(0)" (click)='changeRoute("/cryptoCurrency")' *ngIf="isUserLoggedIn()">
+                                <img src="../../assets/lineo-icon-svgs/icon-3.svg" class="svg-icon">
+                                <h3 class="feature-title">See Crypto currencies</h3>
+                                <div class="feature-desc">
+                                    <p>One-click page to see your favorite Crypto currencies charts, current and
+                                        historic
+                                        rates.</p>
+                                </div>
+                            </a>
+                            <div *ngIf="!isUserLoggedIn()">
+                                <img src="../../assets/lineo-icon-svgs/icon-3.svg" class="svg-icon">
+                                <h3 class="feature-title">See Crypto currencies</h3>
+                                <div class="feature-desc">
+                                    <p>One-click page to see your favorite Crypto currencies charts, current and
+                                        historic rates.</p>
+                                </div>
                             </div>
                         </div> <!-- End of feature -->
                     </div>
@@ -109,7 +147,8 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="float-left mr-5">                                <!-- <small> -->
+                            <div class="float-left mr-5">
+                                <!-- <small> -->
                                 <h4 class="font-weight-bold mb-0">Loosers</h4>
                                 <div class="wwww">
                                     <table class="data-table">
@@ -209,7 +248,7 @@
 
     <footer class="site-footer">
         <div class="container">
-         <!--   <div class="row widget-area">
+            <!--   <div class="row widget-area">
 
                 <div class="col-md-6">
 
@@ -275,12 +314,12 @@
             </div>  -->
 
             <div class="row colophon text-center">
-                <p class="fixed-bottom bg-dark text-white text-center pt-2 pb-2">EStockData by
-                     <span class="text-primary">Yossi Glick</span>
-                </p>
-            </div> 
+                <span class="fixed-bottom bg-dark text-white text-center pt-2 pb-2">EStockData by
+                    <span class="text-primary">Yossi Glick</span>
+                </span>
+            </div>
         </div>
-    </footer> 
+    </footer>
 
 </div> <!-- End of #site-content -->
 
