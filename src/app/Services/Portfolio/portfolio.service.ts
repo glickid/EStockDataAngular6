@@ -213,4 +213,24 @@ export class PortfolioService {
       return [];
     }
   }
+
+  updateStockInPortfolio(stockName, stockSymbol, infoObj) {
+    var i : number = 0;
+
+    for (; i < PortfolioService.stockArr.length; i++) {
+        if (PortfolioService.stockArr[i].symbol === stockSymbol) {
+          PortfolioService.stockArr[i].cprice = infoObj["currentPrice"];
+          PortfolioService.stockArr[i].dvolume = infoObj["dayVolume"];
+          PortfolioService.stockArr[i].dopen = infoObj["openPrice"];
+          PortfolioService.stockArr[i].dayChange = infoObj["changePercent"];
+          break;
+        }
+    }
+
+    if (i >= PortfolioService.stockArr.length) {
+      console.error("Symbol " + stockSymbol + " not foound in PortfolioService.stockArr");
+    }
+
+    return (PortfolioService.stockArr);
+  }    
 }

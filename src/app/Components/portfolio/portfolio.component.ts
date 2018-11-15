@@ -88,7 +88,7 @@ export class PortfolioComponent implements OnInit {
   async addStockToPortfolio(stock) {
     // console.log(stock.symbol);
     var found = false;
-    for (var i = 0; i < this.stockArr.length; i++) {
+    for (let i = 0; i < this.stockArr.length; i++) {
       if (this.stockArr[i].symbol === stock.symbol) {
         //stock already found in array - bail out
         found = true;
@@ -100,7 +100,7 @@ export class PortfolioComponent implements OnInit {
         let repObj: {} = await this._dataSrv.getStockInfo(
           stock.name,
           stock.symbol,
-          i);
+          -1);
 
         this._portfolioSrv.addStockToPortfolio(
           stock.name,
@@ -160,9 +160,33 @@ export class PortfolioComponent implements OnInit {
     console.log(stock.symbol);
   }
 
-  refreshStock(stock) {
-    console.log(stock.symbol);
-  }
+  async refreshStock(stock) {
+
+    try {
+      let repObj: {} = await this._dataSrv.getStockInfo(
+        stock.name,
+        stock.symbol,
+        -1);
+
+      this.stockArr = this._portfolioSrv.updateStockInPortfolio(
+        stock.name,
+        stock.symbol,
+        repObj);
+    }
+    catch (err) {
+      console.log(err);
+    }
+  //   this._dataSrv.getStockInfo(stock.name, stock.symbol).then(function (response) {
+  //     this._portfolioSrv.updateStockInPortfolio(stock.name, stock.symbol, response)
+  //         .then(function (response1) {
+  //             this.stockArr = response1;
+  //         }, function (err) {
+  //             console.log(err);
+  //         });
+  // }, function (err) {
+  //     console.log(err);
+  // });  
+}
 
   getStockInfo(stock) {
     console.log(stock.symbol);
