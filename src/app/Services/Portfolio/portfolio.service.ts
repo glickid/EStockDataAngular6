@@ -29,7 +29,6 @@ export class PortfolioService {
           this.calcDayChange(stockDataObj);
         PortfolioService.stockArr[i].overallProfit =
           this.calcOverallProfit(stockDataObj, PortfolioService.stockArr[i].pprice);
-          PortfolioService.stockArr[i].
         updated = true;
         break;
       }
@@ -147,13 +146,15 @@ export class PortfolioService {
 
       let reply2 = await this._userSrv.updateActiveUser().toPromise();
 
-      for (let i = 0; i < PortfolioService.stockArr.length; i++) {
-        if (PortfolioService.stockArr[i].symbol === stockSymbol) {
-          PortfolioService.stockArr[i].alertsArr.push({ "alertId": alertId });
-          return (PortfolioService.stockArr); // "symbol" : stockSymbol});
-          break;
-        }
-      }
+      // for (let i = 0; i < PortfolioService.stockArr.length; i++) {
+      //   if (PortfolioService.stockArr[i].symbol === stockSymbol) {
+      //     PortfolioService.stockArr[i].alertsArr.push({ "alertId": alertId });
+      //     return (PortfolioService.stockArr); 
+      //     break;
+      //   }
+      // }
+      return (
+        { "stockArr": PortfolioService.stockArr, "returnSymbol": stockSymbol });
     }
     else {
       //oops, something very wrong here!
@@ -169,27 +170,37 @@ export class PortfolioService {
     if (activeUser && activeUser.id) {
       var url = "https://estockdata.herokuapp.com/users/" + activeUser.id;
 
-      for (var i = 0; i < activeUser.portfolio.length; i++) {
+      for (let i = 0; i < activeUser.portfolio.length; i++) {
         if (activeUser.portfolio[i]["symbol"] === symbol) {
-          var index = activeUser.portfolio[i].alertsArr.indexOf(alertId);
+          let index: number = -1;
+          for (let j = 0; j < activeUser.portfolio[i].alertsArr.length; j++) {
+            if (activeUser.portfolio[i].alertsArr[j]["alertId"] === alertId)
+              index = j;
+            break;
+          }
 
-          activeUser.portfolio[i].alertsArr.splice(index, 1);
+          if (index < activeUser.portfolio[i].alertsArr.length) {
+            activeUser.portfolio[i].alertsArr.splice(index, 1);
+          }
+          else {
+            console.log("alert id " + alertId + " not found in user portfolio");
+          }
           break;
         }
       }
 
       let reply = await this.http.put(url, activeUser);
-      
+
       let reply2 = await this._userSrv.updateActiveUser();
-      
+
       for (var i = 0; i < PortfolioService.stockArr.length; i++) {
         if (PortfolioService.stockArr[i].symbol === symbol) {
-            for (var j = 0; j < PortfolioService.stockArr[i].alertsArr.length; j++) {
-              if (PortfolioService.stockArr[i].alertsArr[j].alertId === alertId) {
-                PortfolioService.stockArr[i].alertsArr.splice(j, 1);
-                break;
-              }
+          for (var j = 0; j < PortfolioService.stockArr[i].alertsArr.length; j++) {
+            if (PortfolioService.stockArr[i].alertsArr[j].alertId === alertId) {
+              PortfolioService.stockArr[i].alertsArr.splice(j, 1);
+              break;
             }
+          }
           break;
         }
       }
@@ -197,9 +208,9 @@ export class PortfolioService {
       return PortfolioService.stockArr;
     }
     else {
-    //oops, something very wrong here!
-    console.log("user does not have an id!!")
-    return [];
+      //oops, something very wrong here!
+      console.log("user does not have an id!!")
+      return [];
     }
   }
 }

@@ -105,12 +105,12 @@ export class PortfolioComponent implements OnInit {
         this._portfolioSrv.addStockToPortfolio(
           stock.name,
           stock.symbol,
-          repObj).then( reply => {
+          repObj).then(reply => {
             this.stockArr = reply
           });
       }
       catch (err) {
-        console.log(err);
+        console.error(err);
       }
     }
     else {
@@ -120,18 +120,23 @@ export class PortfolioComponent implements OnInit {
   }
 
   getAlertsInfo(symbol) {
+    // this.stockAlertInfoArr.length = 0;
+
     if (symbol) {
       var alertsArr = this._portfolioSrv.getStockAlertsArr(symbol);
 
       if ($('#' + symbol).hasClass('show')) {
         $('#' + symbol).collapse('hide');
-        for (let i=0; i<this.stockAlertInfoArr.length; i++)
-        {
-          if (this.stockAlertInfoArr[i].stockSymbol === symbol)
-          {
-            this.stockAlertInfoArr.splice(i,1);
+        let indexToSplice: any = [];
+        for (let i = 0; i < this.stockAlertInfoArr.length; i++) {
+          if (this.stockAlertInfoArr[i].stockSymbol === symbol) {
+            indexToSplice.push(i);
             // break;
           }
+        }
+
+        for (let i = indexToSplice.length - 1; i >= 0; i--) {
+          this.stockAlertInfoArr.splice(indexToSplice[i], 1);
         }
       }
       else {
@@ -139,7 +144,10 @@ export class PortfolioComponent implements OnInit {
           this._alertsSrv.getAlertInfo(alertsArr[j].alertId)
             .subscribe((response) => {
               var alertInfo = response;
-              if (alertInfo !== null) {
+              if ((alertInfo === null) || (alertInfo.length === 0)) {
+                console.error("alert not found on server");
+              }
+              else {
                 this.stockAlertInfoArr.push(alertInfo);
               }
             });
@@ -162,7 +170,7 @@ export class PortfolioComponent implements OnInit {
 
   setAlertInfo(stock) {
     this.alertStock = {
-      "name": stock.name, 
+      "name": stock.name,
       "symbol": stock.symbol,
       "price": stock.cprice
     };
@@ -179,18 +187,20 @@ export class PortfolioComponent implements OnInit {
         .then(response1 => {
           this.stockArr = <any[]>response1;
           this.getAlertsInfo(stockSymbol);
-          for (let i=0; i<this.stockAlertInfoArr[i].length; i++) {
+          for (let i = 0; i < this.stockAlertInfoArr.length; i++) {
             if (this.stockAlertInfoArr[i]["symbol"] === stockSymbol) {
               $('#' + stockSymbol).collapse('hide');
             }
           }
-      });
+        });
     })
   }
 
   resetAlertModal() {
     this.alertStock = { "name": "", "symbol": "", "price": 0 };
     this.errorMessage = "";
+    this.alertType = "";
+    this.alertPrice = 0;
   }
 
   setStockAlert() {
@@ -213,10 +223,11 @@ export class PortfolioComponent implements OnInit {
         if (response["id"] >= 0) {
           this._portfolioSrv.addAlertToStock(
             response["stockSymbol"], response["id"]).then(response2 => {
-              this.stockArr = response2;
-              this.getAlertsInfo(this.alertStock.symbol);
-            })
+              this.stockArr = response2["stockArr"];
+              this.getAlertsInfo(response2["returnSymbol"]);            
+            });
         }
+
       });
 
     $('#stockAlertModal').modal('hide');
