@@ -24,11 +24,12 @@ export class PortfolioService {
         PortfolioService.stockArr[i].cprice = stockDataObj["currentPrice"];
         PortfolioService.stockArr[i].dvolume = stockDataObj["dayVolume"];
         PortfolioService.stockArr[i].dopen = stockDataObj["openPrice"];
-        PortfolioService.stockArr[i].alertsArr = stockArrItem.alerts;
+        PortfolioService.stockArr[i].alertsArr = stockArrItem.alertsArr;
         PortfolioService.stockArr[i].dayChange =
           this.calcDayChange(stockDataObj);
         PortfolioService.stockArr[i].overallProfit =
           this.calcOverallProfit(stockDataObj, PortfolioService.stockArr[i].pprice);
+          PortfolioService.stockArr[i].
         updated = true;
         break;
       }
