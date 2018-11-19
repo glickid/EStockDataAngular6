@@ -1,3 +1,63 @@
-<p>
-  crypto-currencies works!
-</p>
+<div class="container bg-secondary">
+
+  <div class="row">
+    <div class="col-sm-12 justify-content-center mt-5 text-center">
+      <div class="form-group">
+        <label for="sel1">Select Graph Type</label>
+        <select class="form-control" id="select-graph-type" [(ngModel)]="graphType" [ngModelOptions]="{standalone: true}">
+          <option value="">---Please select---</option>
+          <option value="DIGITAL_CURRENCY_DAILY">Daily</option>
+          <option value="DIGITAL_CURRENCY_WEEKLY">Weekly</option>
+          <option value="DIGITAL_CURRENCY_MONTHLY">Monthly</option>
+        </select>
+        <div id="login-error" class="alert alert-danger" role="alert" [hidden]='errorMessage===""'>{{errorMessage}}</div>
+      </div>
+      <div>
+        <button type="button" class="btn btn-primary" (click)="getDigitalCurrencyInfo('BTC', 'ILS')">BTC to ILS</button>
+        <button type="button" class="btn btn-success" (click)="getDigitalCurrencyInfo('BTC','USD')">BTC to USD</button>
+        <button type="button" class="btn btn-warning" (click)="getDigitalCurrencyInfo('BTC', 'AUD')">BTC to AUD</button>
+        <button type="button" class="btn btn-success" (click)="getDigitalCurrencyInfo('ETH', 'USD')">ETH to USD</button>
+        <button type="button" class="btn btn-danger"  (click)="getDigitalCurrencyInfo('ETH', 'CNY')">ETH to CNY</button>
+        <button type="button" class="btn btn-warning" (click)="getDigitalCurrencyInfo('ETH', 'AUD')">ETH to AUD</button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div id="login-error" class="alert alert-danger" role="alert" [hidden]='noData===false'>{{dataErrorMessage}}</div>
+    <div class="col-sm-12" [hidden]="!informationSize()">
+      <h2 class="bg-info text-center">{{information["1. Information"]}}</h2>
+      <h5 class="text-center">
+        {{information["2. Digital Currency Code"]}} ({{information["3. Digital Currency Name"]}}) - {{information["4.
+        Market Code"]}}
+        ({{information["5. Market Name"]}})
+      </h5>
+      <h5 class="text-center">
+        {{information["6. Last Refreshed"]}} ({{information["7. Time Zone"]}})
+      </h5>
+    </div>
+  </div>
+  <div class="container mb-5">
+    <div class="row justify-content-center">
+      <div class="col-sm-12" [hidden]="!informationSize()">
+        <div id="chartContainer"></div>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-5">
+    <div class="row mx-auto">
+      <div class="col-md-3 card mb-2" *ngFor="let item of dataArrObj">
+        <div class="card-header bg-success">{{item.key}}</div>
+        <div class="card-body bg-primary text-white"> 
+            <div *ngFor="let item2 of item['value']">
+              <!-- {{item2.key}} : {{item2.value}} -->
+            <!-- class="d-block text-white"> -->
+              <small>{{item2.key.substr(3)}} :
+                <span class="float-right">{{item2.value | number:'1.2-2'}}</span>
+              </small>
+            </div>
+        </div>
+        <!-- <div class="card-footer bg-secondary">Footer</div> -->
+      </div>
+    </div>
+  </div>
+</div>
