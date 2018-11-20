@@ -246,7 +246,8 @@ export class PortfolioComponent implements OnInit {
           this._portfolioSrv.addAlertToStock(
             response["stockSymbol"], response["id"]).then(response2 => {
               this.stockArr = response2["stockArr"];
-              this.getAlertsInfo(response2["returnSymbol"]);
+              // this.getAlertsInfo(response2["returnSymbol"]);
+              $('#' + response2["returnSymbol"]).collapse('hide');
             });
         }
 
