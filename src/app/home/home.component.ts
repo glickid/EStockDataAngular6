@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HostListener } from '@angular/core';
-// import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-
-// import { flexslider } from 'angular-flexslider';
 import { NgwWowService } from 'ngx-wow';
 import * as CanvasJS from '../../canvasjs-2.2/canvasjs.min.js';
 
@@ -244,6 +241,7 @@ export class HomeComponent implements OnInit {
     this.currenciesArr.length = 0;
 
     for (let i = 1; i < currArr.length; i++) {
+      // TODO: do we need this?
       //         $timeout(getCurrencyValue.bind(null, C1, C2),
       //             (30000 + (15000 * (i - 1))))
       //     }
@@ -264,7 +262,6 @@ export class HomeComponent implements OnInit {
         }
         else {
           console.log("failed to parse Currency response ");
-          // console.log(data);
         }
       });
     }

@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-// import { Observable } from 'rxjs';
-// import { FormGroup, FormControl} from '@angular/forms';
 import { Router } from "@angular/router";
 
 import { UserService } from '../../Services/User/user.service';
@@ -39,9 +37,6 @@ export class PortfolioComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    // var activerUser = this._userSrv.getActiveUser();
-
     if (this.currentUser === null) {
       this._route.navigate(['/home']);
     } else {
@@ -73,12 +68,6 @@ export class PortfolioComponent implements OnInit {
   searchStock(searchStr) {
     if (searchStr.length > 1) {
       this.stockList = this._dataSrv.searchStock(searchStr);
-      // .then(function (response) {
-      //     this.stockList = response;
-      // }, function (err) {
-      //     console.log(err);
-      //     this.stockList.length = 0;
-      // })
     }
     else {
       this.stockList.length = 0;
@@ -86,7 +75,6 @@ export class PortfolioComponent implements OnInit {
   }
 
   async addStockToPortfolio(stock) {
-    // console.log(stock.symbol);
     var found = false;
     for (let i = 0; i < this.stockArr.length; i++) {
       if (this.stockArr[i].symbol === stock.symbol) {
@@ -192,6 +180,7 @@ export class PortfolioComponent implements OnInit {
   }
 
   getStockInfo(stock) {
+    //TODO: implement StockInfo modal
     console.log(stock.symbol);
   }
 

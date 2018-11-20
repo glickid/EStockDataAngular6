@@ -68,7 +68,6 @@ export class CryptoCurrenciesComponent implements OnInit {
 
       this._cryptoCurSrv.getBtcData(coin, market, this.graphType)
           .then( response => {
-              // console.log(response);
               if (!response.hasOwnProperty("Meta Data")) {
                   this.noData = true;
                   this.dataErrorMessage = "Sorry Server return empty message";
@@ -85,13 +84,9 @@ export class CryptoCurrenciesComponent implements OnInit {
               }
               else if (this.graphType === "DIGITAL_CURRENCY_WEEKLY") {
                 tempObj = response["Time Series (Digital Currency Weekly)"];
-                // this.dataArrObj = Object.keys(tempObj).
-                //     map(key => ({type: key, value: tempObj[key]}));
               }
               else if (this.graphType === "DIGITAL_CURRENCY_MONTHLY") {
                 tempObj =  response["Time Series (Digital Currency Monthly)"];
-                  // this.dataArrObj = Object.keys(tempObj).
-                  //   map(key => ({type: key, value: tempObj[key]}));
               }
 
               this.dataArrObj = Object.keys(tempObj).
@@ -146,21 +141,14 @@ export class CryptoCurrenciesComponent implements OnInit {
           }]
       });
 
-      // chart.render();
       // needed to solve problem with chart appearence 
       setTimeout(() => {
         //  chart.resize(); 
          chart.render();      
         }, 0);
-      // $timeout(function () {
-      //     //chart.resize(); 
-      //     chart.render();
-      // }, 0);
   }
 
-
   buildDataPoints(market) {
-      //var lastPrice = 0;
       var days = 0;
       var index = 0;
       var date = new Date;
@@ -185,7 +173,6 @@ export class CryptoCurrenciesComponent implements OnInit {
       else if (this.innerWidth < 769)
           days = Math.round(days / 2);
 
-      // for (let [key, value] of Object.entries(this.dataObj)) {
         for (let i=0; i<this.dataArrObj.length && i<days; i++) {
           if (market === "USD")
               priceField = "4b. close (USD)";
@@ -204,9 +191,6 @@ export class CryptoCurrenciesComponent implements OnInit {
           obj = { "x": date, "y": price };
 
           this.dataPoints.push(obj);
-          // if (++index === days)
-          //     break;
-          // lastPrice = price;
       }
 
       for (var i = this.dataPoints.length - 1; i > 0; i--) {

@@ -148,6 +148,7 @@ export class PortfolioService {
 
       let reply2 = await this._userSrv.updateActiveUser().toPromise();
 
+      // TODO : do we need this?
       // for (let i = 0; i < PortfolioService.stockArr.length; i++) {
       //   if (PortfolioService.stockArr[i].symbol === stockSymbol) {
       //     PortfolioService.stockArr[i].alertsArr.push({ "alertId": alertId });

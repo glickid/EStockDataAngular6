@@ -198,22 +198,12 @@ export class DataService {
   getStockInfo(name: string, symbol: string, returnIndex: number) {
     let theUrl: string = "https://api.iextrading.com/1.0/stock/" +
       symbol + "/chart/1m";
-    // let retObj: any{} = {}
-
-    // let reply: Observable<any> =  this.http.get<{}>(theUrl).pipe(
-    //   catchError(this.handleError('Could not get Active info', [])));
-    // let reply: {} = await this.http.get<{}>(theUrl).toPromise()
-
-    // let repObj: {} = reply.toPromise();
-    // repObj["index"] = returnIndex;
-    // return repObj;
 
     return new Promise<{}>((resolve, reject) => {
       // note: could be written `$.get(url).done(resolve).fail(reject);`,
       //       but I expanded it out for clarity
       $.get(theUrl).done((data) => {
         let repdata = {};
-        // infoObj = response.data;
         var last = data[Object.keys(data)[Object.keys(data).length - 1]];
 
         repdata["currentPrice"] = last["close"];
@@ -222,8 +212,6 @@ export class DataService {
         repdata["changePercent"] = last["changePercent"];
         repdata["name"] = name;
         repdata["symbol"] = symbol;
-        // stockObj["dchange"] =
-        // stockObj["overallP"] =
         repdata["index"] = returnIndex
 
         resolve(repdata);
@@ -243,15 +231,5 @@ export class DataService {
         reject(err);
       });
     });
-
-    // $http.get(theUrl).then(function (response) {
-    //     async.resolve(response);
-    // }, function (err) {
-    //     $log.error(err);
-    //     async.reject("failed to get chart info");
-    // })
-
-    // premises.push(async.promise);
-    // return async.promise;
   }
 }

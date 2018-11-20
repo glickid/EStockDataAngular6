@@ -1,20 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-// import { Observable } from 'rxjs/Rx';
 import { Observable } from 'rxjs';
 import { combineLatest } from "rxjs/operators";
-
-//import { interval } from 'rxjs/observable/interval';
-// import 'rxjs/add/observable/interval';
 import { interval } from 'rxjs';
 import * as $ from 'jquery';
-//import { UserComponent } from '../user/user.component';
-// import { portfolio } from '../../Services/Portfolio/Portfolio';
-// import { UserComponent } from '../user/user.component'
+
 import { UserService } from '../../Services/User/user.service';
 import { User } from '../../Services/User/User'
 
 @Component({
-  // providers:[UserComponent ],
   selector: 'app-nav-bar-comp',
   templateUrl: './nav-bar-comp.component.html',
   styleUrls: ['./nav-bar-comp.component.css']
@@ -27,18 +20,10 @@ export class NavBarCompComponent implements OnInit {
   public userManageAlertsArr: String[] = [];
 
   constructor(private _userSrv: UserService) { 
-    // this.currentUser.fname = "";
-    // this.currentUser.lname = "";
-    // this.currentUser.password = "";
-    // this.currentUser.email = "";
-    // this.currentUser.portfolio = "";
-  
-    // this.activeUser = null;
-    // this.alertNum = 0;
-    // this.userManageAlertsArr = [];
     this.activeUser = this._userSrv.getActiveUser();
 
     interval(4000).subscribe(() => {
+        // TODO: implement alert modal
         // $interval(function () {
           this.alertNum = 0 ;
           // if (userSrv.isLoggedIn()) {
@@ -60,12 +45,10 @@ export class NavBarCompComponent implements OnInit {
 
   isUserLoggedIn () {
       return this._userSrv.isLoggedIn();
-      // return false;
   }
 
   login () {
       this._userSrv.login("yossi@yossi.com", "123")
-      // .subscribe((data: User) => console.log(data) );
       .subscribe((data: User) => 
       {
         this.activeUser = data;
@@ -74,6 +57,7 @@ export class NavBarCompComponent implements OnInit {
 
   logout () {
     this._userSrv.logout();
+    // TODO : do we need this?
       // portfolioSrv.logout();
       // $location.path("/");
   }
@@ -83,7 +67,7 @@ export class NavBarCompComponent implements OnInit {
     this.userManageAlertsArr.length = 0;
     
     if (this.activeUser !== null) {
-
+      // TODO: implement Alert modal from navbar
       // for (var i=0; i<this.activeUser.portfolio.length; i++) {
       //   for(var j=0; j<this.activeUser.portfolio[i].alertsArr.length; j++) {
 
@@ -103,6 +87,7 @@ export class NavBarCompComponent implements OnInit {
   }
 
   removeAlert (alert) {
+    //TODO: implement alert modal
     // alertsSrv.removeAlert(alert["id"]).then(function (response) {
     //     portfolioSrv.removeAlertFromStock(alert["id"], alert["stockSymbol"]).then(function (response1) {
     //         var index = this.userManageAlertsArr.indexOf(alert);

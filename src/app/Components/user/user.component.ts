@@ -15,11 +15,6 @@ export class UserComponent implements OnInit {
                               portfolio: []};
 
   constructor(private _UserSrv: UserService) { 
-    // this.currentUser.fname = "";
-    // this.currentUser.lname = "";
-    // this.currentUser.password = "";
-    // this.currentUser.email = "";
-    // this.currentUser.portfolio = [];
   }
 
   ngOnInit() {
@@ -42,19 +37,9 @@ export class UserComponent implements OnInit {
 
   public login () {
     this._UserSrv.login("yossi@yossi.com", "123")
-      // .subscribe((data: User) => console.log(data) );
       .subscribe((data: User) => 
       {
         this.currentUser = data;
-        // this.currentUser.fname = data[0]['fname'];
-        // this.currentUser.lname = data[0]['lname'];
-        // this.currentUser.email = data[0]['email'];
-        // this.currentUser.id = data[0]['id'];
-        // this.currentUser.password = data[0]['password'];
-        //  for ( let i=0; i<data[0]['portfolio'].length; i++)
-        //  {
-        //    this.currentUser.portfolio.push(data[0]['portfolio'][i]);
-        //  }
       });
   }
 }

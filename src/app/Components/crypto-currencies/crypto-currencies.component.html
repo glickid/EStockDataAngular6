@@ -49,14 +49,11 @@
         <div class="card-header bg-success">{{item.key}}</div>
         <div class="card-body bg-primary text-white"> 
             <div *ngFor="let item2 of item['value']">
-              <!-- {{item2.key}} : {{item2.value}} -->
-            <!-- class="d-block text-white"> -->
               <small>{{item2.key.substr(3)}} :
                 <span class="float-right">{{item2.value | number:'1.2-2'}}</span>
               </small>
             </div>
         </div>
-        <!-- <div class="card-footer bg-secondary">Footer</div> -->
       </div>
     </div>
   </div>

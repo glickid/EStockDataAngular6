@@ -1,10 +1,11 @@
 <div id="signup-container" class="container">
     <div class="row main">
         <div class="main-login main-center">
-                <img id="main-icon" class="d-inline-block" src="assests/1477521928_10_icon-icons.com_74620.png" alt="" width="50px">
-                <h1 class="d-inline-block display-4">EStockData</h1>
-                <p class="lead">Please Register </p>
-                
+            <img id="main-icon" class="d-inline-block" src="assests/1477521928_10_icon-icons.com_74620.png" alt=""
+                width="50px">
+            <h1 class="d-inline-block display-4">EStockData</h1>
+            <p class="lead">Please Register </p>
+
             <form class="" method="post" action="#" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
                     <label for="name" class="cols-sm-2 control-label">First Name</label>
@@ -13,24 +14,24 @@
                             <span class="input-group-addon">
                                 <i class="fa fa-user fa" aria-hidden="true"></i>
                             </span>
-                            <input type="text" class="form-control signup-input" name="name" id="fname" 
-                            placeholder="Enter your first Name" formControlName="fname"/>
+                            <input type="text" class="form-control signup-input" name="name" id="fname" placeholder="Enter your first Name"
+                                formControlName="fname" />
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                        <label for="name" class="cols-sm-2 control-label">Last Name</label>
-                        <div class="cols-sm-10">
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <i class="fa fa-user fa" aria-hidden="true"></i>
-                                </span>
-                                <input type="text" class="form-control signup-input" name="name" id="lname" 
-                                placeholder="Enter your last Name" formControlName="lname" />
-                            </div>
+                    <label for="name" class="cols-sm-2 control-label">Last Name</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-user fa" aria-hidden="true"></i>
+                            </span>
+                            <input type="text" class="form-control signup-input" name="name" id="lname" placeholder="Enter your last Name"
+                                formControlName="lname" />
                         </div>
                     </div>
+                </div>
 
                 <div class="form-group">
                     <label for="email" class="cols-sm-2 control-label">Your Email</label>
@@ -39,8 +40,8 @@
                             <span class="input-group-addon">
                                 <i class="fa fa-envelope fa"></i>
                             </span>
-                            <input type="text" class="form-control signup-input" name="email" id="email" 
-                            placeholder="Enter your Email" formControlName="email"/>
+                            <input type="text" class="form-control signup-input" name="email" id="email" placeholder="Enter your Email"
+                                formControlName="email" />
                         </div>
                     </div>
                 </div>
@@ -52,8 +53,8 @@
                             <span class="input-group-addon">
                                 <i class="fa fa-lock fa-lg" aria-hidden="true"></i>
                             </span>
-                            <input type="password" class="form-control signup-input" name="password" 
-                            id="password" placeholder="Enter your Password" formControlName="password"/>
+                            <input type="password" class="form-control signup-input" name="password" id="password"
+                                placeholder="Enter your Password" formControlName="password" />
                         </div>
                     </div>
                 </div>
@@ -65,14 +66,13 @@
                             <span class="input-group-addon">
                                 <i class="fa fa-lock fa-lg" aria-hidden="true"></i>
                             </span>
-                            <input type="password" class="form-control signup-input" name="confirm" id="confirm" placeholder="Confirm your Password" />
+                            <input type="password" class="form-control signup-input" name="confirm" id="confirm"
+                                placeholder="Confirm your Password" />
                         </div>
                     </div>
                 </div>
                 <div class="form-group ">
-                    <button href="javascript:void(0)" type="submit" id="button"
-                     class="btn btn-primary btn-lg btn-block login-button">Register</button>
-                      <!-- ng-click="signup()">Register</a> -->
+                    <button href="javascript:void(0)" type="submit" id="button" class="btn btn-primary btn-lg btn-block login-button">Register</button>
                 </div>
             </form>
         </div>

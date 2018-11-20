@@ -41,7 +41,6 @@ export class StockChartsComponent implements OnInit {
   }
 
   openStockChart(symbol, period) {
-    // $location.path("/charts/"+ symbol + "/" + period );
     this._router.navigate(['./charts/' + symbol +  '/' + period ]);
   }
 
@@ -86,7 +85,6 @@ export class StockChartsComponent implements OnInit {
 
     function setChartInfoForStockPeriod(stockSymbol, period, dataSrv) {
       dataSrv.getStockChartInfo(stockSymbol, period).then(function (response) {
-        // console.log(JSON.stringify(response.data[response.data.length-1]));
         for (var i = 0; i < response.length; i++) {
 
           dataPoints.push({
@@ -115,21 +113,11 @@ export class StockChartsComponent implements OnInit {
     this.stockList.length = 0;
 
     if (searchStr.length > 1) {
-      // this._dataSrv.searchStock(searchStr).then(function (response) {
-        this.stockList = this._dataSrv.searchStock(searchStr);
-        
-      // }, function (err) {
-      //   console.log(err);
-      //   this.stockList.length = 0;
-      // })
+        this.stockList = this._dataSrv.searchStock(searchStr);        
     }
-    // else {
-    //   this.stockList.length = 0;
-    // }
   }
 
   showChartOfStock(name, symbol) {
-    // $location.path("/charts/" + symbol + "/1m");
     this.stockList.length = 0;
     this._router.navigate(['./charts/' + symbol + '/' + '1m' ]);
   }
