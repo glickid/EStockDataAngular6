@@ -3,6 +3,8 @@ import { portfolio } from './Portfolio';
 
 import { UserService } from '../User/user.service'
 import { HttpClient } from '@angular/common/http';
+// import { resolve } from 'dns';
+// import { reject } from 'q';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +28,7 @@ export class PortfolioService {
         PortfolioService.stockArr[i].dopen = stockDataObj["openPrice"];
         PortfolioService.stockArr[i].alertsArr = stockArrItem.alertsArr;
         PortfolioService.stockArr[i].dayChange = stockDataObj["changePercent"];
-          //this.calcDayChange(stockDataObj);
+        //this.calcDayChange(stockDataObj);
         PortfolioService.stockArr[i].overallProfit =
           this.calcOverallProfit(stockDataObj, PortfolioService.stockArr[i].pprice);
         updated = true;
@@ -171,44 +173,58 @@ export class PortfolioService {
     var activeUser = this._userSrv.getActiveUser();
 
     if (activeUser && activeUser.id) {
-      var url = "https://estockdata.herokuapp.com/users/" + activeUser.id;
 
-      for (let i = 0; i < activeUser.portfolio.length; i++) {
-        if (activeUser.portfolio[i]["symbol"] === symbol) {
-          let index: number = -1;
-          for (let j = 0; j < activeUser.portfolio[i].alertsArr.length; j++) {
-            if (activeUser.portfolio[i].alertsArr[j]["alertId"] === alertId)
-              index = j;
-            break;
-          }
+      let promise = new Promise((resolve, reject) => {
 
-          if (index < activeUser.portfolio[i].alertsArr.length) {
-            activeUser.portfolio[i].alertsArr.splice(index, 1);
-          }
-          else {
-            console.log("alert id " + alertId + " not found in user portfolio");
-          }
-          break;
-        }
-      }
+        var url = "https://estockdata.herokuapp.com/users/" + activeUser.id;
 
-      let reply = await this.http.put(url, activeUser);
-
-      let reply2 = await this._userSrv.updateActiveUser();
-
-      for (var i = 0; i < PortfolioService.stockArr.length; i++) {
-        if (PortfolioService.stockArr[i].symbol === symbol) {
-          for (var j = 0; j < PortfolioService.stockArr[i].alertsArr.length; j++) {
-            if (PortfolioService.stockArr[i].alertsArr[j].id === alertId) {
-              PortfolioService.stockArr[i].alertsArr.splice(j, 1);
+        for (let i = 0; i < activeUser.portfolio.length; i++) {
+          if (activeUser.portfolio[i]["symbol"] === symbol) {
+            let index: number = -1;
+            for (let j = 0; j < activeUser.portfolio[i].alertsArr.length; j++) {
+              if (activeUser.portfolio[i].alertsArr[j]["alertId"] === alertId)
+                index = j;
               break;
             }
-          }
-          break;
-        }
-      }
 
-      return PortfolioService.stockArr;
+            if (index < activeUser.portfolio[i].alertsArr.length) {
+              activeUser.portfolio[i].alertsArr.splice(index, 1);
+            }
+            else {
+              console.log("alert id " + alertId + " not found in user portfolio");
+            }
+            break;
+          }
+        }
+
+        this.http.put(url, activeUser).toPromise().then(success => {
+
+          this._userSrv.updateActiveUser().toPromise().then(success => {
+
+            // for (var i = 0; i < PortfolioService.stockArr.length; i++) {
+            //   if (PortfolioService.stockArr[i].symbol === symbol) {
+            //     for (var j = 0; j < PortfolioService.stockArr[i].alertsArr.length; j++) {
+            //       if (PortfolioService.stockArr[i].alertsArr[j].id === alertId) {
+            //         PortfolioService.stockArr[i].alertsArr.splice(j, 1);
+            //         break;
+            //       }
+            //     }
+            //     break;
+            //   }
+            // }
+
+            resolve(PortfolioService.stockArr);
+          }, error => {
+            console.log(error);
+            reject([]);
+          });
+        }, error => {
+          console.log(error);
+          reject([]);
+        });
+        return promise;
+      });
+      return promise;
     }
     else {
       //oops, something very wrong here!
@@ -218,16 +234,16 @@ export class PortfolioService {
   }
 
   updateStockInPortfolio(stockName, stockSymbol, infoObj) {
-    var i : number = 0;
+    var i: number = 0;
 
     for (; i < PortfolioService.stockArr.length; i++) {
-        if (PortfolioService.stockArr[i].symbol === stockSymbol) {
-          PortfolioService.stockArr[i].cprice = infoObj["currentPrice"];
-          PortfolioService.stockArr[i].dvolume = infoObj["dayVolume"];
-          PortfolioService.stockArr[i].dopen = infoObj["openPrice"];
-          PortfolioService.stockArr[i].dayChange = infoObj["changePercent"];
-          break;
-        }
+      if (PortfolioService.stockArr[i].symbol === stockSymbol) {
+        PortfolioService.stockArr[i].cprice = infoObj["currentPrice"];
+        PortfolioService.stockArr[i].dvolume = infoObj["dayVolume"];
+        PortfolioService.stockArr[i].dopen = infoObj["openPrice"];
+        PortfolioService.stockArr[i].dayChange = infoObj["changePercent"];
+        break;
+      }
     }
 
     if (i >= PortfolioService.stockArr.length) {
@@ -236,45 +252,46 @@ export class PortfolioService {
 
     return (PortfolioService.stockArr);
   }
-  
+
   async removeStockFromPortfolio(stockName, stockSymbol) {
-  
+
     var activeUser = this._userSrv.getActiveUser();
 
     if (activeUser && activeUser.id) {
-      let url : string = "https://estockdata.herokuapp.com/users/" + activeUser.id;
+      let promise = new Promise((resolve, reject) => {
 
-      for (let i=0; i< activeUser.portfolio.length; i++) {
+      let url: string = "https://estockdata.herokuapp.com/users/" + activeUser.id;
+
+      for (let i = 0; i < activeUser.portfolio.length; i++) {
         if (activeUser.portfolio[i]["symbol"] === stockSymbol) {
-            activeUser.portfolio.splice(i,1);
-            break;
+          activeUser.portfolio.splice(i, 1);
+          break;
         }
       }
 
-      let reply = await this.http.put(url, activeUser);
+      this.http.put(url, activeUser).toPromise().then ( success => {
 
-      let promise = new Promise((resolve, reject) => {
+        this._userSrv.updateActiveUser().toPromise().then(success => {
 
-        this._userSrv.updateActiveUser().toPromise().then ( success => {
-
-            for (let i = 0; i < PortfolioService.stockArr.length; i++) {
-                if (PortfolioService.stockArr[i].symbol === stockSymbol) {
-                  PortfolioService.stockArr.splice(i, 1);
-                  break;
-                }
+          for (let i = 0; i < PortfolioService.stockArr.length; i++) {
+            if (PortfolioService.stockArr[i].symbol === stockSymbol) {
+              PortfolioService.stockArr.splice(i, 1);
+              break;
             }
-            resolve(PortfolioService.stockArr);
+          }
+          resolve(PortfolioService.stockArr);
         }, error => {
           reject(error);
         });
-        
-        return promise;
-      }); 
-    } 
+      });
+      return promise;
+    });
+    return promise;
+    }
     else {
-        //oops, something very wrong here!
-        console.error("user does not have an id!!")
-        return [];
+      //oops, something very wrong here!
+      console.error("user does not have an id!!")
+      return [];
     }
   }
 }
