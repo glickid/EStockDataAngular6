@@ -25,8 +25,8 @@ export class PortfolioService {
         PortfolioService.stockArr[i].dvolume = stockDataObj["dayVolume"];
         PortfolioService.stockArr[i].dopen = stockDataObj["openPrice"];
         PortfolioService.stockArr[i].alertsArr = stockArrItem.alertsArr;
-        PortfolioService.stockArr[i].dayChange =
-          this.calcDayChange(stockDataObj);
+        PortfolioService.stockArr[i].dayChange = stockDataObj["changePercent"];
+          //this.calcDayChange(stockDataObj);
         PortfolioService.stockArr[i].overallProfit =
           this.calcOverallProfit(stockDataObj, PortfolioService.stockArr[i].pprice);
         updated = true;
@@ -44,7 +44,8 @@ export class PortfolioService {
         "cprice": stockDataObj["currentPrice"],
         "dvolume": stockDataObj["dayVolume"],
         "dopen": stockDataObj["openPrice"],
-        "dayChange": this.calcDayChange(stockDataObj),
+        "dayChange": stockDataObj["changePercent"],
+        //this.calcDayChange(stockDataObj),
         "overallProfit": this.calcOverallProfit(stockDataObj, stockArrItem["pprice"]),
         "alertsArr": stockArrItem["alertsArr"]
       };
@@ -103,7 +104,8 @@ export class PortfolioService {
       "cprice": infoObj["currentPrice"],
       "dvolume": infoObj["dayVolume"],
       "dopen": infoObj["openPrice"],
-      "dayChange": this.calcDayChange(infoObj),
+      "dayChange": infoObj["changePercent"],
+      //this.calcDayChange(infoObj),
       "overallProfit": "0%",
       "alertsArr": []
     };
@@ -196,7 +198,7 @@ export class PortfolioService {
       for (var i = 0; i < PortfolioService.stockArr.length; i++) {
         if (PortfolioService.stockArr[i].symbol === symbol) {
           for (var j = 0; j < PortfolioService.stockArr[i].alertsArr.length; j++) {
-            if (PortfolioService.stockArr[i].alertsArr[j].alertId === alertId) {
+            if (PortfolioService.stockArr[i].alertsArr[j].id === alertId) {
               PortfolioService.stockArr[i].alertsArr.splice(j, 1);
               break;
             }
@@ -232,5 +234,46 @@ export class PortfolioService {
     }
 
     return (PortfolioService.stockArr);
-  }    
+  }
+  
+  async removeStockFromPortfolio(stockName, stockSymbol) {
+  
+    var activeUser = this._userSrv.getActiveUser();
+
+    if (activeUser && activeUser.id) {
+      let url : string = "https://estockdata.herokuapp.com/users/" + activeUser.id;
+
+      for (let i=0; i< activeUser.portfolio.length; i++) {
+        if (activeUser.portfolio[i]["symbol"] === stockSymbol) {
+            activeUser.portfolio.splice(i,1);
+            break;
+        }
+      }
+
+      let reply = await this.http.put(url, activeUser);
+
+      let promise = new Promise((resolve, reject) => {
+
+        this._userSrv.updateActiveUser().toPromise().then ( success => {
+
+            for (let i = 0; i < PortfolioService.stockArr.length; i++) {
+                if (PortfolioService.stockArr[i].symbol === stockSymbol) {
+                  PortfolioService.stockArr.splice(i, 1);
+                  break;
+                }
+            }
+            resolve(PortfolioService.stockArr);
+        }, error => {
+          reject(error);
+        });
+        
+        return promise;
+      }); 
+    } 
+    else {
+        //oops, something very wrong here!
+        console.error("user does not have an id!!")
+        return [];
+    }
+  }
 }

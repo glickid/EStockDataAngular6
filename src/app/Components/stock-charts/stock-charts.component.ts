@@ -17,6 +17,7 @@ export class StockChartsComponent implements OnInit {
   period: string = "";
   currentUser: User;
   stockList: any = [];
+  input : string = "";
 
   constructor(private _activeRoute: ActivatedRoute,
     private _router: Router,

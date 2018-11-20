@@ -1,5 +1,4 @@
-
-export default class Alert  {
+export interface Alert  {
     id: number;
     userId: number;
     alertType: string;

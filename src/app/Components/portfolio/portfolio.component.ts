@@ -5,7 +5,7 @@ import { Router } from "@angular/router";
 
 import { UserService } from '../../Services/User/user.service';
 import { User } from '../../Services/User/user';
-import { DataService } from '../../Services/Data/data.service'
+import { DataService } from '../../Services/Data/data.service';
 import { PortfolioService } from '../../Services/Portfolio/portfolio.service';
 import { AlertsService } from 'src/app/Services/Alerts/alerts.service';
 
@@ -40,12 +40,12 @@ export class PortfolioComponent implements OnInit {
 
   ngOnInit() {
 
-    var activerUser = this._userSrv.getActiveUser();
+    // var activerUser = this._userSrv.getActiveUser();
 
-    if (activerUser === null) {
+    if (this.currentUser === null) {
       this._route.navigate(['/home']);
     } else {
-      this.userPortfolio = activerUser["portfolio"];
+      this.userPortfolio = this.currentUser["portfolio"];
       this.buildStockArray();
     }
   }
@@ -156,8 +156,21 @@ export class PortfolioComponent implements OnInit {
     }
   }
 
-  removeStock(stock) {
-    console.log(stock.symbol);
+  async removeStock(stock) {
+    for (var i = 0; i < stock.alertsArr.length; i++) {
+      // this.removeAlert(stock.alertsArr[i]["alertId"], stock.symbol);
+      this._alertsSrv.removeAlert(stock.alertsArr[i]["alertId"]).then(response => {
+        //nothing to do
+      }, error => {
+        console.log(error);
+      });
+    }
+
+    this._portfolioSrv.removeStockFromPortfolio(stock.name, stock.symbol).then(success => {
+      this.stockArr = success;
+    }, error => {
+      console.error(error);
+    });
   }
 
   async refreshStock(stock) {
@@ -176,17 +189,7 @@ export class PortfolioComponent implements OnInit {
     catch (err) {
       console.log(err);
     }
-  //   this._dataSrv.getStockInfo(stock.name, stock.symbol).then(function (response) {
-  //     this._portfolioSrv.updateStockInPortfolio(stock.name, stock.symbol, response)
-  //         .then(function (response1) {
-  //             this.stockArr = response1;
-  //         }, function (err) {
-  //             console.log(err);
-  //         });
-  // }, function (err) {
-  //     console.log(err);
-  // });  
-}
+  }
 
   getStockInfo(stock) {
     console.log(stock.symbol);
@@ -216,8 +219,14 @@ export class PortfolioComponent implements OnInit {
               $('#' + stockSymbol).collapse('hide');
             }
           }
-        });
-    })
+        },
+          error => {
+            console.error(error);
+          });
+
+    }, error => {
+      console.error(error);
+    });
   }
 
   resetAlertModal() {
@@ -248,7 +257,7 @@ export class PortfolioComponent implements OnInit {
           this._portfolioSrv.addAlertToStock(
             response["stockSymbol"], response["id"]).then(response2 => {
               this.stockArr = response2["stockArr"];
-              this.getAlertsInfo(response2["returnSymbol"]);            
+              this.getAlertsInfo(response2["returnSymbol"]);
             });
         }
 
