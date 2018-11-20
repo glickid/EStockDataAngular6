@@ -204,7 +204,7 @@ export class PortfolioComponent implements OnInit {
   }
 
   openStockChart(stock) {
-    console.log(stock.symbol);
+    this._route.navigate(['/charts/' + stock.symbol + '/1m']);
   }
 
   removeAlert(alertId, stockSymbol) {
