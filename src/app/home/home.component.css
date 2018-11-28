@@ -2716,7 +2716,7 @@
  }
  
  .data-table > thead {
-   border-bottom: #000 5px double;
+   border-bottom: rgb(7, 7, 7) 5px double;
  }
  @media screen and (max-width: 480px) {
    /* line 282, sass/libs/bootstrap-grid/_grid.scss */
@@ -2756,7 +2756,14 @@
      .main-navigation {
        position: relative;
        margin-top: 20px;
-       right: 0; } }
+       right: 0; 
+      }
+
+      .data-table > thead > tr > th,
+      .data-table > tbody > tr > td {
+          padding: 4px;
+      }
+    }
    /* line 33, sass/layout/_header.scss */
    .main-navigation ul {
      list-style: none;
@@ -2795,10 +2802,13 @@
          .main-navigation ul.active {
            left: 0;
            width: 200px;
-           margin: auto; } }
+           margin: auto; 
+          } 
+        }
      /* line 63, sass/layout/_header.scss */
      .main-navigation ul li {
-       float: left; }
+       float: left; 
+      }
        /* line 66, sass/layout/_header.scss */
        .main-navigation ul li a {
          padding: 10px;
@@ -2807,7 +2817,8 @@
          color: #0c93d1;
          text-decoration: none;
          font-size: 13px;
-         font-weight: 500; }
+         font-weight: 500; 
+        }
      @media screen and (max-width: 640px) {
        /* line 33, sass/layout/_header.scss */
        .main-navigation ul {
@@ -2824,7 +2835,9 @@
                    transform: translateY(0); }
          /* line 87, sass/layout/_header.scss */
          .main-navigation ul li {
-           float: none; } }
+           float: none; 
+          } 
+        }
  
  /* line 92, sass/layout/_header.scss */
  .menu-toggle {
@@ -2838,7 +2851,8 @@
    font-weight: 700;
    -webkit-transition: background .2s ease, color .2s ease;
            transition: background .2s ease, color .2s ease;
-   outline: none; }
+   outline: none; 
+  }
    /* line 104, sass/layout/_header.scss */
    .menu-toggle:hover, .menu-toggle.active {
      background: #0c93d1;
