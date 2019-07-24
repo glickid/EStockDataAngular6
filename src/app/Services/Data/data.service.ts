@@ -22,7 +22,7 @@ export class DataService {
   }
 
   getStockSymboles(): Observable<any[]> {
-    var theUrl = "https://api.iextrading.com/1.0/ref-data/symbols";
+    var theUrl = "https://cloud.iexapis.com/stable/ref-data/symbols?token=pk_c8f2aacb954f451991f9aafd38bfa103"
 
     return this.http.get<any[]>(theUrl).pipe(
       catchError(this.handleError('Could not get Active info', [])));
@@ -152,22 +152,21 @@ export class DataService {
   }
 
   getGainersList(): Observable<any[]> {
-    var theUrl = "https://api.iextrading.com/1.0/stock/market/list/gainers";
+    var theUrl = "https://cloud.iexapis.com/stable/stock/market/list/gainers?token=pk_c8f2aacb954f451991f9aafd38bfa103"
 
     return this.http.get<any[]>(theUrl).pipe(
       catchError(this.handleError('Could not get Gainers info', [])));
   }
 
   getLosersList(): Observable<any[]> {
-    var theUrl = "https://api.iextrading.com/1.0/stock/market/list/losers";
-
+    var theUrl = "https://cloud.iexapis.com/stable/stock/market/list/losers?token=pk_c8f2aacb954f451991f9aafd38bfa103"
     return this.http.get<any[]>(theUrl).pipe(
       catchError(this.handleError('Could not get Losers info', [])));
   }
 
   getMostActive(): Observable<any[]> {
-    var theUrl = "https://api.iextrading.com/1.0/stock/market/list/mostactive";
-
+    var theUrl = "https://cloud.iexapis.com/stable/stock/market/collection/sector"
+          + "?collectionName=mostactive&token=pk_c8f2aacb954f451991f9aafd38bfa103";
     return this.http.get<any[]>(theUrl).pipe(
       catchError(this.handleError('Could not get Active info', [])));
   }
@@ -196,8 +195,8 @@ export class DataService {
   }
 
   getStockInfo(name: string, symbol: string, returnIndex: number) {
-    let theUrl: string = "https://api.iextrading.com/1.0/stock/" +
-      symbol + "/chart/1m";
+    let theUrl: string = "https://cloud.iexapis.com/stable/stock/" + 
+      symbol + "/chart/1m" + "?token=pk_c8f2aacb954f451991f9aafd38bfa103";
 
     return new Promise<{}>((resolve, reject) => {
       // note: could be written `$.get(url).done(resolve).fail(reject);`,
@@ -222,8 +221,7 @@ export class DataService {
   }
 
   getStockChartInfo(symbol, timePeriod) {
-    var theUrl = "https://api.iextrading.com/1.0/stock/" + symbol + "/chart/" + timePeriod;
-
+    var theUrl = "https://cloud.iexapis.com/stable/stock/" + symbol + "/chart/" + timePeriod + "?token=pk_c8f2aacb954f451991f9aafd38bfa103";
     return new Promise<{}>((resolve, reject) => {
       $.get(theUrl).done((data) => {
         resolve(data);
