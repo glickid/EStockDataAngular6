@@ -1,0 +1,2 @@
+ng build --prod --base-href "https://glickid.github.io/EStockDataAngular6/"  --output-path dist/EStockDataAngular6
+npx ngh --dir=dist/EStockDataAngular6/ --no-silent
